@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Categoria(
+data class dataCategoria(
     @SerialName("id_categoria") val idCategoria: Int = 0,
     @SerialName("nombre") val nombre: String = ""
 )
@@ -12,5 +12,5 @@ data class Categoria(
 data class CategoriaResponse(
     @SerialName("status") val estado: String = "",
     @SerialName("message") val mensaje: String = "",
-    @SerialName("data") val data: List<Categoria>? = emptyList()
+    @SerialName("data") val data: List<dataCategoria>? = emptyList()
 )

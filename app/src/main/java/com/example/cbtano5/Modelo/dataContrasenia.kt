@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ContraseniaRequest(
+data class dataContrasenia(
     @SerialName("tipo_usuario") val tipoUsuario: String = "",
     @SerialName("identificador") val identificador: Int = 0,
     @SerialName("contrasena_actual") val contrasenaActual: String = "",

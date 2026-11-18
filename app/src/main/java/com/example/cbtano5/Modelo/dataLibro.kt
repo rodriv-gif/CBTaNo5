@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Libro(
+data class dataLibro(
     @SerialName("id_libro") val idLibro: Int = 0,
     @SerialName("titulo") val titulo: String = "",
     @SerialName("autores") val autores: String = "",
@@ -15,5 +15,5 @@ data class Libro(
 data class LibroResponse(
     @SerialName("status") val estado: String = "",
     @SerialName("message") val mensaje: String = "",
-    @SerialName("data") val data: List<Libro>? = emptyList()
+    @SerialName("data") val data: List<dataLibro>? = emptyList()
 )
