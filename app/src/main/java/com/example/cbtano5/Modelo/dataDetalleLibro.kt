@@ -12,5 +12,4 @@ data class dataDetalleLibro(
 data class DetalleLibroResponse(
     val success: Boolean,
     val mensaje: String,
-    val libro: dataDetalleLibro?
-)
+    val libro: dataDetalleLibro?)

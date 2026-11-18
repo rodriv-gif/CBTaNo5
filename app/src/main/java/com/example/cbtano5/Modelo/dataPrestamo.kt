@@ -12,5 +12,4 @@ data class dataPrestamo(
 data class MisPrestamosResponse(
     val success: Boolean,
     val mensaje: String,
-    val prestamos: List<dataPrestamo>
-)
+    val prestamos: List<dataPrestamo>)

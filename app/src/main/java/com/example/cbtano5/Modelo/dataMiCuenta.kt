@@ -13,5 +13,4 @@ data class dataMiCuenta(
 data class MiCuentaResponse(
     val success: Boolean,
     val mensaje: String,
-    val usuario: dataMiCuenta?
-)
+    val usuario: dataMiCuenta?)
