@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Una tarjeta de adeudo (libro vencido o libro a reponer) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:background="@drawable/cbta_bg_tarjeta"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <!--
+        Portada. Por ahora lleva el cuadro con X del wireframe.
+        Cuando conectes la API, aquí se carga la imagen (campo "portada").
+    -->
+    <ImageView
+        android:id="@+id/portada_adeudo"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/cbta_ic_portada" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/concepto_adeudo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/cbta_texto"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="Libro vencido" />
+
+        <TextView
+            android:id="@+id/dias_adeudo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/cbta_texto"
+            android:textSize="13sp"
+            tools:text="Días de retraso: 5" />
+
+        <TextView
+            android:id="@+id/monto_adeudo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/cbta_texto"
+            android:textSize="13sp"
+            tools:text="Adeudo: 50.00 MXN" />
+
+    </LinearLayout>
+
+</LinearLayout>
