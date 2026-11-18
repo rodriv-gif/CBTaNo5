@@ -16,6 +16,9 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
+import com.example.cbtano5.Modelo.MisPrestamosResponse
+import com.example.cbtano5.Modelo.DetalleLibroResponse
+import  com.example.cbtano5.Modelo.MiCuentaResponse
 
 interface ApiService {
     // Pantalla Iniciar sesión
@@ -49,5 +52,19 @@ interface ApiService {
     //Pantalla de cambiar contraseña
     @POST("cambiar_contrasenia.php")
     suspend fun cambiarContrasenia(@Body peticion: dataContrasenia): ContraseniaResponse
+
+    // Detalle libro
+    @GET("detalle_libro.php")
+    suspend fun obtenerDetalleLibro(@Query("idLibro") idLibro: Int): DetalleLibroResponse
+
+
+    // Mi cuenta
+    @GET("mi_cuenta.php")
+    suspend fun obtenerMiCuenta(@Query("idLector") idLector: Int): MiCuentaResponse
+
+
+    // Mis prestamos
+    @GET("mis_prestamos.php")
+    suspend fun obtenerMisPrestamos(@Query("idLector") idLector: Int): MisPrestamosResponse
 
 }
