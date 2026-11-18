@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Marco del calendario -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M5,5 L19,5 Q20,5 20,6 L20,19 Q20,20 19,20 L5,20 Q4,20 4,19 L4,6 Q4,5 5,5 Z"
+        android:strokeColor="#2B343F"
+        android:strokeLineJoin="round"
+        android:strokeWidth="1.5" />
+
+    <!-- Línea bajo el encabezado y argollas -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M4,9.5 L20,9.5 M8,3 L8,6.5 M16,3 L16,6.5"
+        android:strokeColor="#2B343F"
+        android:strokeLineCap="round"
+        android:strokeWidth="1.5" />
+
+    <!-- Puntos de los días -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M8,13 L8.01,13 M12,13 L12.01,13 M16,13 L16.01,13 M8,16.5 L8.01,16.5 M12,16.5 L12.01,16.5 M16,16.5 L16.01,16.5"
+        android:strokeColor="#2B343F"
+        android:strokeLineCap="round"
+        android:strokeWidth="1.8" />
+
+</vector>
