@@ -35,3 +35,4 @@ data class Adeudo(
     @SerializedName("adeudo")
     val adeudo: String
 )
+

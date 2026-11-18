@@ -55,3 +55,4 @@ fun AppCompatActivity.ajustarBarrasDelSistema(
         insets
     }
 }
+

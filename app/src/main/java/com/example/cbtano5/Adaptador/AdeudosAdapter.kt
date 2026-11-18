@@ -69,3 +69,4 @@ class AdeudosAdapter : RecyclerView.Adapter<AdeudosAdapter.AdeudoViewHolder>() {
         val monto: TextView = vista.findViewById(R.id.monto_adeudo)
     }
 }
+

@@ -107,3 +107,4 @@ class AvisosAdapter : RecyclerView.Adapter<AvisosAdapter.AvisoViewHolder>() {
         val mensaje: TextView = vista.findViewById(R.id.mensaje_aviso)
     }
 }
+

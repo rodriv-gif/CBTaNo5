@@ -37,3 +37,4 @@ data class Aviso(
     @SerializedName("leido")
     val leido: Int = 0
 )
+
