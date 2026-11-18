@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/cbta_blanco"
     android:orientation="vertical"
-    tools:context=".Mis_Adeudos">
+    tools:context=".Vista.Mis_Adeudos">
 
     <!-- Encabezado verde con flecha y título -->
     <LinearLayout

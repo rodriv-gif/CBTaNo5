@@ -1,4 +1,4 @@
-package com.example.cbtano5
+package com.example.cbtano5.Vista
 
 import android.os.Bundle
 import android.view.View
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cbtano5.Adaptador.AvisosAdapter
 import com.example.cbtano5.Modelo.Aviso
-import com.example.cbtano5.Vista.ajustarBarrasDelSistema
+import com.example.cbtano5.R
 
 class Avisos_Notificaciones : AppCompatActivity() {
 
@@ -81,4 +81,3 @@ class Avisos_Notificaciones : AppCompatActivity() {
         )
     }
 }
-
