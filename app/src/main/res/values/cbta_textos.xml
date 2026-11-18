@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Comunes -->
+    <string name="cbta_volver">Volver</string>
+    <string name="cbta_aceptar">Aceptar</string>
+
+    <!-- Barra de navegación inferior -->
+    <string name="cbta_nav_inicio">Inicio</string>
+    <string name="cbta_nav_catalogo">Catálogo</string>
+    <string name="cbta_nav_reservas">Reservas</string>
+    <string name="cbta_nav_cuenta">Mi cuenta</string>
+
+    <!-- Avisos (Notificaciones) -->
+    <string name="cbta_avisos_titulo">Notificaciones</string>
+    <string name="cbta_avisos_vacio">No tienes notificaciones</string>
+
+    <!-- Reserva realizada -->
+    <string name="cbta_reserva_titulo">¡Reserva realizada!</string>
+    <string name="cbta_reserva_mensaje">El libro “%1$s” ha sido reservado correctamente.</string>
+    <string name="cbta_reserva_vigencia_titulo">Vigencia de la reserva:</string>
+
+    <!-- Mis adeudos -->
+    <string name="cbta_adeudos_titulo">Mis adeudos</string>
+    <string name="cbta_adeudos_vacio">No tienes adeudos</string>
+    <string name="cbta_adeudo_dias">Días de retraso: %1$d</string>
+    <string name="cbta_adeudo_monto">Adeudo: %1$s</string>
+
+    <!-- Libro recibido -->
+    <string name="cbta_libro_titulo">¡Libro recibido!</string>
+    <string name="cbta_libro_mensaje">Se ha confirmado la devolución del libro correctamente.</string>
+
+</resources>
+
