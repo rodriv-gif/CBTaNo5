@@ -1,10 +1,10 @@
-package com.example.cbtano5
+package com.example.cbtano5.Vista
 
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.cbtano5.Vista.ajustarBarrasDelSistema
+import com.example.cbtano5.R
 
 class Reserva_Realizada : AppCompatActivity() {
 
@@ -45,4 +45,3 @@ class Reserva_Realizada : AppCompatActivity() {
         }
     }
 }
-
