@@ -30,5 +30,27 @@
     <string name="cbta_libro_titulo">¡Libro recibido!</string>
     <string name="cbta_libro_mensaje">Se ha confirmado la devolución del libro correctamente.</string>
 
+    <!-- Catálogo de libros -->
+    <string name="cbta_catalogo_titulo">Catálogo de libros</string>
+    <string name="cbta_catalogo_buscar_hint">Buscar por título, autor o tema...</string>
+
+    <!-- Reservar libro -->
+    <string name="cbta_reservar_libro_titulo">Reservar libro</string>
+    <string name="cbta_reservar_datos_seccion">Datos de la reserva</string>
+    <string name="cbta_reservar_label_lector">Lector</string>
+    <string name="cbta_reservar_label_fecha">Día para recoger tu libro</string>
+    <string name="cbta_reservar_label_tipo_usuario">Tipo de usuario</string>
+    <string name="cbta_reservar_btn_confirmar">Confirmar reserva</string>
+
+    <!-- Cambio de contraseña -->
+    <string name="cbta_cambio_contrasenia_titulo">Cambio de contraseña</string>
+    <string name="cbta_cambio_contrasenia_label_actual">Contraseña Actual</string>
+    <string name="cbta_cambio_contrasenia_hint_actual">Contraseña actual</string>
+    <string name="cbta_cambio_contrasenia_label_nueva">Nueva contraseña</string>
+    <string name="cbta_cambio_contrasenia_hint_nueva">nueva contraseña</string>
+    <string name="cbta_cambio_contrasenia_label_confirmar">Confirmar contraseña</string>
+    <string name="cbta_cambio_contrasenia_hint_confirmar">confirmar</string>
+    <string name="cbta_cambio_contrasenia_btn_actualizar">Actualizar contraseña</string>
+
 </resources>
 
