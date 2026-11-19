@@ -57,14 +57,11 @@ interface ApiService {
     @GET("detalle_libro.php")
     suspend fun obtenerDetalleLibro(@Query("idLibro") idLibro: Int): DetalleLibroResponse
 
-
     // Mi cuenta
     @GET("mi_cuenta.php")
     suspend fun obtenerMiCuenta(@Query("idLector") idLector: Int): MiCuentaResponse
 
-
     // Mis prestamos
     @GET("mis_prestamos.php")
     suspend fun obtenerMisPrestamos(@Query("idLector") idLector: Int): MisPrestamosResponse
-
 }
