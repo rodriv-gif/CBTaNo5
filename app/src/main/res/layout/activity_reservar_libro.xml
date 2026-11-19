@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lytRaizReservar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cbta_blanco"
+    android:orientation="vertical">
+    <!--tools:context=".Vista.ReservarLibroActivity"-->
+
+    <!-- Encabezado verde superior con botón de regresar y título -->
+    <LinearLayout
+        android:id="@+id/lytEncabezadoReservar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cbta_verde_barra"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <ImageButton
+                android:id="@+id/btnVolverReservar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/cbta_volver"
+                android:src="@drawable/cbta_ic_volver" />
+
+            <TextView
+                android:id="@+id/txtTituloReservar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/cbta_reservar_libro_titulo"
+                android:textColor="@color/cbta_blanco"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- Contenido principal deslizable -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/cbta_fondo"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Tarjeta con los datos del libro (Traídos desde la BD) -->
+                <LinearLayout
+                    android:id="@+id/lytTarjetaLibro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cbta_bg_tarjeta"
+                    android:orientation="horizontal"
+                    android:padding="14dp">
+
+                    <ImageView
+                        android:id="@+id/imgPortadaLibro"
+                        android:layout_width="64dp"
+                        android:layout_height="84dp"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/cbta_ic_portada" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtTituloLibro"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/cbta_texto"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            tools:text="Cien años de soledad" />
+
+                        <TextView
+                            android:id="@+id/txtAutorLibro"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textColor="@color/cbta_texto_secundario"
+                            android:textSize="14sp"
+                            tools:text="Gabriel García Márquez" />
+
+                        <TextView
+                            android:id="@+id/txtCategoriaLibro"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/cbta_bg_etiqueta_categoria"
+                            android:paddingHorizontal="10dp"
+                            android:paddingVertical="3dp"
+                            android:textColor="@color/cbta_verde_texto"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            tools:text="Literatura" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Título de sección: Datos de la reserva -->
+                <TextView
+                    android:id="@+id/txtSeccionDatosReserva"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="12dp"
+                    android:text="@string/cbta_reservar_datos_seccion"
+                    android:textColor="@color/cbta_verde_texto"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Tarjeta contenedora de los datos de la reserva -->
+                <LinearLayout
+                    android:id="@+id/lytTarjetaDatosReserva"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cbta_bg_tarjeta"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Campo: Lector (Bloqueado / Solo Lectura) -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cbta_reservar_label_lector"
+                        android:textColor="@color/cbta_texto"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/txtLector"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="6dp"
+                        android:background="@drawable/cbta_bg_campo_texto"
+                        android:clickable="false"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        android:paddingHorizontal="12dp"
+                        android:textColor="@color/cbta_texto"
+                        android:textSize="14sp"
+                        tools:text="Ana" />
+
+                    <!-- Campo: Día para recoger tu libro -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/cbta_reservar_label_fecha"
+                        android:textColor="@color/cbta_texto"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/txtFechaRecoger"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="6dp"
+                        android:background="@drawable/cbta_bg_campo_texto"
+                        android:drawableEnd="@drawable/cbta_ic_calendario"
+                        android:focusable="false"
+                        android:inputType="none"
+                        android:paddingHorizontal="12dp"
+                        android:textColor="@color/cbta_texto"
+                        android:textSize="14sp"
+                        tools:text="20/10/2026" />
+
+                    <!-- Campo: Tipo de usuario (Bloqueado / Solo Lectura) -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/cbta_reservar_label_tipo_usuario"
+                        android:textColor="@color/cbta_texto"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/txtTipoUsuario"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="6dp"
+                        android:background="@drawable/cbta_bg_campo_texto"
+                        android:clickable="false"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        android:paddingHorizontal="12dp"
+                        android:textColor="@color/cbta_texto"
+                        android:textSize="14sp"
+                        tools:text="Alumno" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- Botón verde Confirmar reserva -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnConfirmarReserva"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/cbta_bg_boton"
+            android:stateListAnimator="@null"
+            android:text="@string/cbta_reservar_btn_confirmar"
+            android:textAllCaps="false"
+            android:textColor="@color/cbta_blanco"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- Barra de navegación inferior -->
+    <include layout="@layout/cbta_barra_navegacion" />
+
+</LinearLayout>
