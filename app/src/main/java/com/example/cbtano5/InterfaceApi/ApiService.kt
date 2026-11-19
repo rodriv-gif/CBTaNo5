@@ -19,6 +19,12 @@ import retrofit2.http.Query
 import com.example.cbtano5.Modelo.MisPrestamosResponse
 import com.example.cbtano5.Modelo.DetalleLibroResponse
 import  com.example.cbtano5.Modelo.MiCuentaResponse
+import com.example.cbtano5.Modelo.Aviso
+import com.example.cbtano5.Modelo.AdeudosRespuesta
+import com.example.cbtano5.Modelo.ReservaRealizada
+import com.example.cbtano5.Modelo.PrestamoConfirmado
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 
 interface ApiService {
     // Pantalla Iniciar sesión
@@ -64,4 +70,31 @@ interface ApiService {
     // Mis prestamos
     @GET("mis_prestamos.php")
     suspend fun obtenerMisPrestamos(@Query("idLector") idLector: Int): MisPrestamosResponse
+
+    // Pantalla Avisos (notificaciones)
+    @GET("obtener_avisos.php")
+    suspend fun obtenerAvisos(
+        @Query("id") idLector: Int
+    ): List<Aviso>
+
+    // Pantalla Mis adeudos
+    @GET("obtener_adeudos.php")
+    suspend fun obtenerAdeudos(
+        @Query("id") idLector: Int
+    ): AdeudosRespuesta
+
+    // Pantalla Reserva realizada
+    @GET("obtener_reserva_realizada.php")
+    suspend fun obtenerReservaRealizada(
+        @Query("id") idLector: Int,
+        @Query("id_reserva") idReserva: Int
+    ): ReservaRealizada
+
+    // Pantalla Libro recibido (este PHP lee formulario, no JSON)
+    @FormUrlEncoded
+    @POST("confirmar_recibido.php")
+    suspend fun confirmarRecibido(
+        @Field("id") idLector: Int,
+        @Field("id_reserva") idReserva: Int
+    ): PrestamoConfirmado
 }
