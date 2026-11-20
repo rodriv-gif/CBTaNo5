@@ -1,6 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F4F7F8"
+    android:fitsSystemWindows="true">
+
+    <!-- ENCABEZADO -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#004D32">
+
+        <!-- BOTON REGRESAR -->
+        <TextView
+            android:id="@+id/btnRegresar"
+            android:layout_width="56dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="←"
+            android:textSize="32sp"
+            android:textColor="#FFFFFF"
+            android:contentDescription="Regresar"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <!-- TITULO DE LA PANTALLA -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="56dp"
+            android:gravity="center"
+            android:text="Mis préstamos"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF" />
+
+    </FrameLayout>
+
+    <!-- CONTENEDOR PRINCIPAL ADAPTABLE -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp">
+
+        <!-- TOTAL DE PRESTAMOS ACTIVOS -->
+        <TextView
+            android:id="@+id/txtPrestamosActivos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:gravity="center"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:background="#006337"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:text="Activos (1)" />
+
+        <!-- LISTA DINAMICA DE PRESTAMOS -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPrestamos"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="14dp"
+            android:paddingBottom="12dp"
+            android:clipToPadding="false"
+            android:scrollbars="vertical"
+            android:overScrollMode="ifContentScrolls"
+            android:nestedScrollingEnabled="true"
+            tools:listitem="@layout/item_prestamo"
+            tools:itemCount="2" />
+
+        <!-- MENSAJE SIN PRESTAMOS -->
+        <TextView
+            android:id="@+id/txtSinPrestamos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:gravity="center"
+            android:text="No tienes préstamos activos"
+            android:textSize="14sp"
+            android:textColor="#475569"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <!-- BARRA INFERIOR -->
+    <include
+        android:id="@+id/barraNavegacion"
+        layout="@layout/cbta_barra_navegacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

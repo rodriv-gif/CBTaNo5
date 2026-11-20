@@ -1,8 +1,14 @@
 package com.example.cbtano5.Modelo
 
 class clsModeloMiCuenta {
-    open suspend fun obtenerMiCuenta(idLector: Int): MiCuentaResponse {
 
-        return RetrofitCliente.apiService.obtenerMiCuenta(idLector)
+    suspend fun obtenerMiCuentaAlumno(matricula: String): MiCuentaResponse {
+
+        return RetrofitCliente.apiService.obtenerMiCuentaAlumno(matricula)
+    }
+
+    suspend fun obtenerMiCuentaTrabajador(numeroControl: String): MiCuentaResponse {
+
+        return RetrofitCliente.apiService.obtenerMiCuentaTrabajador(numeroControl)
     }
 }

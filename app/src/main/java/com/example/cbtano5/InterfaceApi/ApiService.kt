@@ -58,18 +58,33 @@ interface ApiService {
     //Pantalla de cambiar contraseña
     @POST("cambiar_contrasenia.php")
     suspend fun cambiarContrasenia(@Body peticion: dataContrasenia): ContraseniaResponse
+///////
 
-    // Detalle libro
+    // Pantalla Detalle del libro
     @GET("detalle_libro.php")
-    suspend fun obtenerDetalleLibro(@Query("idLibro") idLibro: Int): DetalleLibroResponse
+    suspend fun obtenerDetalleLibro(@Query("id_libro") idLibro: Int): DetalleLibroResponse
 
-    // Mi cuenta
+    // Pantalla Mis libros
+    @GET("mis_libros.php")
+    suspend fun obtenerMisLibros(@Query("idLector") idLector: Int): LibroResponse
+
+    // Pantalla Mi cuenta - Alumno
     @GET("mi_cuenta.php")
-    suspend fun obtenerMiCuenta(@Query("idLector") idLector: Int): MiCuentaResponse
+    suspend fun obtenerMiCuentaAlumno(@Query("matricula") matricula: String): MiCuentaResponse
 
-    // Mis prestamos
+    // Pantalla Mi cuenta - Trabajador
+    @GET("mi_cuenta.php")
+    suspend fun obtenerMiCuentaTrabajador(@Query("numero_control") numeroControl: String): MiCuentaResponse
+
+
+    // Mis préstamos - Alumno
     @GET("mis_prestamos.php")
-    suspend fun obtenerMisPrestamos(@Query("idLector") idLector: Int): MisPrestamosResponse
+    suspend fun obtenerMisPrestamosAlumno(@Query("matricula") matricula: String): MisPrestamosResponse
+
+    // Mis préstamos - Trabajador
+    @GET("mis_prestamos.php")
+    suspend fun obtenerMisPrestamosTrabajador(@Query("numero_control") numeroControl: String): MisPrestamosResponse
+    ////////
 
     // Pantalla Avisos (notificaciones)
     @GET("obtener_avisos.php")
