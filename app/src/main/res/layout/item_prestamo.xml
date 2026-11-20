@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:orientation="vertical"
+    android:background="#C4D3E0"
+    android:padding="1dp">
+
+    <!-- TARJETA BLANCA ADAPTABLE -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="250dp"
+        android:orientation="vertical"
+        android:background="#FFFFFF"
+        android:padding="12dp">
+
+        <!-- INFORMACION DEL LIBRO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="top">
+
+            <!-- PORTADA -->
+            <FrameLayout
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="top"
+                android:background="#374151"
+                android:padding="1dp">
+
+                <ImageView
+                    android:id="@+id/imgPortadaPrestamo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:contentDescription="Portada del libro"
+                    android:scaleType="fitCenter" />
+
+            </FrameLayout>
+
+            <!-- TITULO Y AUTOR -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical">
+
+                <!-- TITULO DEL LIBRO -->
+                <TextView
+                    android:id="@+id/txtTituloPrestamo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#111827"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:breakStrategy="high_quality"
+                    android:hyphenationFrequency="normal"
+                    tools:text="El principito" />
+
+                <!-- AUTOR -->
+                <TextView
+                    android:id="@+id/txtAutorPrestamo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#111827"
+                    android:textSize="13sp"
+                    android:breakStrategy="high_quality"
+                    tools:text="Antoine de Saint-Exupéry" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- FECHA DE PRESTAMO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- ICONO DE FECHA -->
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="▦"
+                android:textColor="#475569"
+                android:textSize="27sp" />
+
+            <!-- DATOS DE FECHA -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha de préstamo:"
+                    android:textColor="#111827"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtFechaPrestamo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="#111827"
+                    android:textSize="13sp"
+                    tools:text="30/10/2025" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- FECHA DE DEVOLUCION -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- ICONO DE FECHA -->
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="▦"
+                android:textColor="#475569"
+                android:textSize="27sp" />
+
+            <!-- DATOS DE DEVOLUCION -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha de devolución:"
+                    android:textColor="#111827"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtFechaDevolucion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="#111827"
+                    android:textSize="13sp"
+                    tools:text="05/11/2025" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

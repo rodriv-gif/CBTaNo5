@@ -7,27 +7,39 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class clsMisPrestamosPresentador(private val vista: MisPrestamosActivity) {
+
     private val modelo = clsModeloMisPrestamos()
-
-    fun cargarPrestamos(idLector: Int) {
-
-        if (idLector <= 0) {
-            vista.mostrarError("ID del lector no válido")
+    fun cargarPrestamos(
+        matricula: String,
+        numeroControl: String
+    ) {
+        if (matricula.isBlank() && numeroControl.isBlank()) {
+            vista.mostrarError("Identificador del lector no válido")
             return
         }
-
+        if (matricula.isNotBlank() && numeroControl.isNotBlank()) {
+            vista.mostrarError("Solo se permite un identificador")
+            return
+        }
         CoroutineScope(Dispatchers.Main).launch {
             try {
+                val respuesta = if (matricula.isNotBlank()) {
 
-                val prestamos = modelo.obtenerMisPrestamos(idLector)
+                    modelo.obtenerMisPrestamosAlumno(matricula)
 
-                vista.mostrarPrestamos(prestamos)
-
+                } else {
+                    modelo.obtenerMisPrestamosTrabajador(numeroControl)
+                }
+                if (respuesta.success && respuesta.data != null) {
+                    vista.mostrarPrestamos(respuesta)
+                } else {
+                    vista.mostrarError(respuesta.message)
+                }
             } catch (e: Exception) {
-                vista.mostrarError(
-                    "Error al cargar préstamos: " + e.localizedMessage
+                vista.mostrarError("Error al cargar préstamos: " + e.localizedMessage
                 )
             }
         }
     }
 }
+

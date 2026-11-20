@@ -1,6 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F4F7F8"
+    android:fitsSystemWindows="true">
+
+    <!-- ENCABEZADO -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#004D32">
+
+        <!-- BOTON REGRESAR -->
+        <TextView
+            android:id="@+id/btnRegresar"
+            android:layout_width="56dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="←"
+            android:textSize="32sp"
+            android:textColor="#FFFFFF"
+            android:contentDescription="Regresar"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <!-- TITULO ENCABEZADO -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="56dp"
+            android:gravity="center"
+            android:text="Detalle del libro"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF" />
+
+    </FrameLayout>
+
+    <!-- CONTENIDO ADAPTABLE Y DESPLAZABLE -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        android:overScrollMode="ifContentScrolls"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="0dp"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
+
+            <!-- TARJETA INFORMACION DEL LIBRO -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#C4D3E0"
+                android:padding="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="95dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="12dp"
+                    android:background="#FFFFFF">
+
+                    <!-- PORTADA -->
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="#374151"
+                        android:padding="1dp">
+
+                        <ImageView
+                            android:id="@+id/imgPortadaLibro"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#FFFFFF"
+                            android:scaleType="fitCenter"
+                            android:adjustViewBounds="true"
+                            android:contentDescription="Portada del libro" />
+
+                    </FrameLayout>
+
+                    <!-- DATOS DEL LIBRO -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="12dp"
+                        android:orientation="vertical">
+
+                        <!-- TITULO -->
+                        <TextView
+                            android:id="@+id/txtTituloLibro"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="19sp"
+                            android:textStyle="bold"
+                            android:textColor="#111827"
+                            android:breakStrategy="high_quality"
+                            tools:text="Cien años de soledad" />
+
+                        <!-- AUTOR -->
+                        <TextView
+                            android:id="@+id/txtAutorLibro"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textSize="12sp"
+                            android:textColor="#111827"
+                            tools:text="Gabriel García Márquez" />
+
+                        <!-- CATEGORIA -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:background="#A9D8B6"
+                            android:padding="1dp">
+
+                            <TextView
+                                android:id="@+id/txtCategoriaLibro"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="#E2F5E6"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="10dp"
+                                android:paddingTop="2dp"
+                                android:paddingBottom="2dp"
+                                android:textColor="#00562F"
+                                android:textSize="12sp"
+                                tools:text="Literatura" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- INFORMACION DE DISPONIBILIDAD -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                android:background="#B4DDBE"
+                android:padding="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="11dp"
+                    android:background="#E2F5E6">
+
+                    <!-- DISPONIBILIDAD -->
+                    <TextView
+                        android:id="@+id/txtDisponibilidad"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="#00562F"
+                        tools:text="Disponible: 3 ejemplares" />
+
+                    <!-- ISBN -->
+                    <TextView
+                        android:id="@+id/txtIsbn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="#00562F"
+                        tools:text="ISBN: 978-84-376-0494-7" />
+
+                    <!-- UBICACION -->
+                    <TextView
+                        android:id="@+id/txtUbicacion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="#00562F"
+                        tools:text="Ubicación: Estante A - Literatura" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- TITULO SINOPSIS -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Sinopsis"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="#00562F" />
+
+            <!-- CONTENIDO SINOPSIS -->
+            <TextView
+                android:id="@+id/txtSinopsis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:textSize="14sp"
+                android:textColor="#111827"
+                android:lineSpacingExtra="2dp"
+                android:breakStrategy="high_quality"
+                tools:text="La historia de la familia Buendía a lo largo de varias generaciones en Macondo, donde lo cotidiano y lo extraordinario se entrelazan." />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- BOTON RESERVAR -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="12dp">
+
+        <Button
+            android:id="@+id/btnReservarLibro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="Reservar libro"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#006337"
+            android:stateListAnimator="@null" />
+
+    </LinearLayout>
+
+    <!-- BARRA DE NAVEGACION -->
+    <include
+        android:id="@+id/barraNavegacion"
+        layout="@layout/cbta_barra_navegacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
