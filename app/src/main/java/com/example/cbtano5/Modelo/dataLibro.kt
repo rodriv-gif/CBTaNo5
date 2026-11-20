@@ -9,6 +9,7 @@ data class dataLibro(
     @SerialName("titulo") val titulo: String = "",
     @SerialName("autores") val autores: String = "",
     @SerialName("portada") val portada: String = ""
+
 )
 
 @Serializable
