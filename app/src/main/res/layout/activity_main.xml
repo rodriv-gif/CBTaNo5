@@ -1,19 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Vista.MainActivity">
+    android:background="@drawable/fondo_pantalla"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginBottom="128dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="86dp"
+            android:layout_marginTop="0dp"
+            android:contentDescription="Logo CBTa No. 5"
+            android:src="@drawable/logo_cbta" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="CBTa No. 5"
+            android:textColor="@color/texto_principal"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Biblioteca"
+            android:textColor="@color/texto_principal"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Iniciar sesión"
+            android:textColor="@color/verde_principal"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Accede a tu cuenta"
+            android:textColor="@color/texto_principal"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/txtNumeroControl"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/fondo_campo"
+            android:drawableStart="@drawable/ic_id_card"
+            android:drawablePadding="12dp"
+            android:hint="Número de control"
+            android:inputType="number"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textColor="@color/texto_principal"
+            android:textColorHint="@color/texto_principal"
+            android:textSize="14sp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp">
+
+            <EditText
+                android:id="@+id/txtContrasenia"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/fondo_campo"
+                android:drawableStart="@drawable/ic_lock"
+                android:drawablePadding="12dp"
+                android:hint="Contraseña"
+                android:inputType="textPassword"
+                android:paddingStart="12dp"
+                android:paddingEnd="48dp"
+                android:textColor="@color/texto_principal"
+                android:textColorHint="@color/texto_principal"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/ivVerContrasenia"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="end|center_vertical"
+                android:padding="12dp"
+                android:src="@drawable/ic_eye_off"
+                android:tint="@color/texto_principal" />
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/btnIngresar"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/fondo_boton"
+            android:fontFamily="sans-serif-medium"
+            android:stateListAnimator="@null"
+            android:text="Ingresar"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:backgroundTint="@null" />
+
+        <TextView
+            android:id="@+id/txtOlvidaste"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="¿Olvidaste tu contraseña?"
+            android:textColor="@color/azul_acento"
+            android:textSize="14sp" />
+    </LinearLayout>
+</LinearLayout>
