@@ -33,6 +33,10 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize"/>
 
+        <activity android:name=".Vista.Avisos_Notificaciones" />
+        <activity android:name=".Vista.Mis_Adeudos" />
+        <activity android:name=".Vista.Reserva_Realizada" />
+        <activity android:name=".Vista.Libro_Recibido" />
     </application>
 
 </manifest>

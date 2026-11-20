@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lytTarjetaLibro"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:background="@drawable/cbta_bg_aviso_verde"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <!-- Portada dinámica desde BD -->
+    <ImageView
+        android:id="@+id/imgPortadaLibro"
+        android:layout_width="64dp"
+        android:layout_height="84dp"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/cbta_ic_portada" />
+
+    <!-- Datos del libro: título, autor y etiqueta de categoría -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtTituloLibro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/cbta_texto"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="Cien años de soledad" />
+
+        <TextView
+            android:id="@+id/txtAutorLibro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/cbta_texto_secundario"
+            android:textSize="13sp"
+            tools:text="Gabriel García Márquez" />
+
+        <TextView
+            android:id="@+id/txtCategoriaLibro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/cbta_bg_etiqueta_categoria"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:textColor="@color/cbta_verde_texto"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            tools:text="Literatura" />
+    </LinearLayout>
+
+    <!-- Flecha reutilizada de cbta_ic_volver girada 180° -->
+    <ImageView
+        android:id="@+id/imgFlechaDetalle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:contentDescription="@null"
+        android:rotation="180"
+        android:src="@drawable/cbta_ic_volver"
+        app:tint="@color/cbta_verde_texto" />
+
+</LinearLayout>

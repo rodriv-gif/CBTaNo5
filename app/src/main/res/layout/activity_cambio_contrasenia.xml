@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lytRaizCambioContrasenia"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cbta_blanco"
+    android:orientation="vertical">
+<!--  tools:context=".Vista.CambioContraseniaActivity"-->
+
+    <!-- Encabezado verde superior con botón de regresar y título -->
+    <LinearLayout
+        android:id="@+id/lytEncabezadoCambioContrasenia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cbta_verde_barra"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <ImageButton
+                android:id="@+id/btnVolverCambioContrasenia"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/cbta_volver"
+                android:src="@drawable/cbta_ic_volver" />
+
+            <TextView
+                android:id="@+id/txtTituloCambioContrasenia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/cbta_cambio_contrasenia_titulo"
+                android:textColor="@color/cbta_blanco"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- Cuerpo principal con scroll -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/cbta_fondo"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="24dp">
+
+                <!-- Campo 1: Contraseña Actual -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cbta_cambio_contrasenia_label_actual"
+                    android:textColor="@color/cbta_texto"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/txtContraseniaActual"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/cbta_bg_tarjeta"
+                    android:drawableStart="@drawable/cbta_ic_candado"
+                    android:drawablePadding="12dp"
+                    android:hint="@string/cbta_cambio_contrasenia_hint_actual"
+                    android:inputType="textPassword"
+                    android:paddingHorizontal="14dp"
+                    android:textColor="@color/cbta_texto"
+                    android:textColorHint="@color/cbta_texto_secundario"
+                    android:textSize="14sp" />
+
+                <!-- Campo 2: Nueva contraseña -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/cbta_cambio_contrasenia_label_nueva"
+                    android:textColor="@color/cbta_texto"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/txtNuevaContrasenia"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/cbta_bg_tarjeta"
+                    android:drawableStart="@drawable/cbta_ic_candado"
+                    android:drawablePadding="12dp"
+                    android:hint="@string/cbta_cambio_contrasenia_hint_nueva"
+                    android:inputType="textPassword"
+                    android:paddingHorizontal="14dp"
+                    android:textColor="@color/cbta_texto"
+                    android:textColorHint="@color/cbta_texto_secundario"
+                    android:textSize="14sp" />
+
+                <!-- Campo 3: Confirmar contraseña -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/cbta_cambio_contrasenia_label_confirmar"
+                    android:textColor="@color/cbta_texto"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/txtConfirmarContrasenia"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/cbta_bg_tarjeta"
+                    android:drawableStart="@drawable/cbta_ic_candado"
+                    android:drawablePadding="12dp"
+                    android:hint="@string/cbta_cambio_contrasenia_hint_confirmar"
+                    android:inputType="textPassword"
+                    android:paddingHorizontal="14dp"
+                    android:textColor="@color/cbta_texto"
+                    android:textColorHint="@color/cbta_texto_secundario"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- Botón verde Actualizar contraseña -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnActualizarContrasenia"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/cbta_bg_boton"
+            android:stateListAnimator="@null"
+            android:text="@string/cbta_cambio_contrasenia_btn_actualizar"
+            android:textAllCaps="false"
+            android:textColor="@color/cbta_blanco"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

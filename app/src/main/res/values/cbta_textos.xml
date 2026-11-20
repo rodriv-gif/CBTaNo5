@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Comunes -->
+    <string name="cbta_volver">Volver</string>
+    <string name="cbta_aceptar">Aceptar</string>
+
+    <!-- Barra de navegación inferior -->
+    <string name="cbta_nav_inicio">Inicio</string>
+    <string name="cbta_nav_catalogo">Catálogo</string>
+    <string name="cbta_nav_reservas">Reservas</string>
+    <string name="cbta_nav_cuenta">Mi cuenta</string>
+
+    <!-- Avisos (Notificaciones) -->
+    <string name="cbta_avisos_titulo">Notificaciones</string>
+    <string name="cbta_avisos_vacio">No tienes notificaciones</string>
+
+    <!-- Reserva realizada -->
+    <string name="cbta_reserva_titulo">¡Reserva realizada!</string>
+    <string name="cbta_reserva_mensaje">El libro “%1$s” ha sido reservado correctamente.</string>
+    <string name="cbta_reserva_vigencia_titulo">Vigencia de la reserva:</string>
+
+    <!-- Mis adeudos -->
+    <string name="cbta_adeudos_titulo">Mis adeudos</string>
+    <string name="cbta_adeudos_vacio">No tienes adeudos</string>
+    <string name="cbta_adeudo_dias">Días de retraso: %1$d</string>
+    <string name="cbta_adeudo_monto">Adeudo: %1$s</string>
+
+    <!-- Libro recibido -->
+    <string name="cbta_libro_titulo">¡Libro recibido!</string>
+    <string name="cbta_libro_mensaje">Se ha confirmado la devolución del libro correctamente.</string>
+
+    <!-- Catálogo de libros -->
+    <string name="cbta_catalogo_titulo">Catálogo de libros</string>
+    <string name="cbta_catalogo_buscar_hint">Buscar por título, autor o tema...</string>
+
+    <!-- Reservar libro -->
+    <string name="cbta_reservar_libro_titulo">Reservar libro</string>
+    <string name="cbta_reservar_datos_seccion">Datos de la reserva</string>
+    <string name="cbta_reservar_label_lector">Lector</string>
+    <string name="cbta_reservar_label_fecha">Día para recoger tu libro</string>
+    <string name="cbta_reservar_label_tipo_usuario">Tipo de usuario</string>
+    <string name="cbta_reservar_btn_confirmar">Confirmar reserva</string>
+
+    <!-- Cambio de contraseña -->
+    <string name="cbta_cambio_contrasenia_titulo">Cambio de contraseña</string>
+    <string name="cbta_cambio_contrasenia_label_actual">Contraseña Actual</string>
+    <string name="cbta_cambio_contrasenia_hint_actual">Contraseña actual</string>
+    <string name="cbta_cambio_contrasenia_label_nueva">Nueva contraseña</string>
+    <string name="cbta_cambio_contrasenia_hint_nueva">nueva contraseña</string>
+    <string name="cbta_cambio_contrasenia_label_confirmar">Confirmar contraseña</string>
+    <string name="cbta_cambio_contrasenia_hint_confirmar">confirmar</string>
+    <string name="cbta_cambio_contrasenia_btn_actualizar">Actualizar contraseña</string>
+
+</resources>
+

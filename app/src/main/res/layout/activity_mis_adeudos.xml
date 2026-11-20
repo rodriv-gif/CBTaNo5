@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/raiz"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cbta_blanco"
+    android:orientation="vertical"
+    tools:context=".Vista.Mis_Adeudos">
+
+    <!-- Encabezado verde con flecha y título -->
+    <LinearLayout
+        android:id="@+id/encabezado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cbta_verde_barra"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <ImageButton
+                android:id="@+id/btn_volver"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/cbta_volver"
+                android:src="@drawable/cbta_ic_volver" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/cbta_adeudos_titulo"
+                android:textColor="@color/cbta_blanco"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- Lista de adeudos -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/cbta_fondo">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lista_adeudos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="16dp"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_adeudo_lista" />
+
+        <TextView
+            android:id="@+id/texto_vacio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/cbta_adeudos_vacio"
+            android:textColor="@color/cbta_texto_secundario"
+            android:textSize="16sp"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <include layout="@layout/cbta_barra_navegacion" />
+
+</LinearLayout>
+
