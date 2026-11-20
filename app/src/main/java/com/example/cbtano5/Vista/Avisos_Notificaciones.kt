@@ -4,19 +4,32 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cbtano5.Adaptador.AvisosAdapter
 import com.example.cbtano5.Modelo.Aviso
+import com.example.cbtano5.Presentador.clsAvisosPresentador
 import com.example.cbtano5.R
 
 class Avisos_Notificaciones : AppCompatActivity() {
+
+    companion object {
+
+        // Mismo nombre que usan Inicio y Mis reservas para mandar el id del lector:
+        //   val intent = Intent(this, Avisos_Notificaciones::class.java)
+        //   intent.putExtra(Avisos_Notificaciones.EXTRA_ID_LECTOR, id)
+        //   startActivity(intent)
+        const val EXTRA_ID_LECTOR = "id"
+    }
 
     private lateinit var listaAvisos: RecyclerView
     private lateinit var textoVacio: TextView
 
     private val adaptador = AvisosAdapter()
+
+    private lateinit var presentador: clsAvisosPresentador
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +50,14 @@ class Avisos_Notificaciones : AppCompatActivity() {
             finish()
         }
 
-        // Datos de ejemplo (los del wireframe) para ver la pantalla.
-        // Cuando conectes la API, quita esta línea y llama a
-        // mostrarAvisos(lista) con lo que regrese obtener_avisos.php.
-        mostrarAvisos(avisosDeEjemplo())
+        // Mientras llegan los datos no se muestra "No tienes notificaciones".
+        textoVacio.visibility = View.GONE
+
+        presentador = clsAvisosPresentador(this)
+
+        val idLector = intent.getIntExtra(EXTRA_ID_LECTOR, 0)
+
+        presentador.cargarAvisos(idLector)
     }
 
     /** Muestra la lista; si viene vacía, muestra "No tienes notificaciones". */
@@ -57,27 +74,8 @@ class Avisos_Notificaciones : AppCompatActivity() {
         }
     }
 
-    private fun avisosDeEjemplo(): List<Aviso> {
-
-        return listOf(
-
-            Aviso(
-                titulo = "Devoluciones",
-                mensaje = "Recuerde devolver sus libros en la fecha establecida.",
-                fecha = "Hoy"
-            ),
-
-            Aviso(
-                titulo = "Nuevo libro",
-                mensaje = "Ya está disponible “El principito” en el catálogo.",
-                fecha = "Ayer"
-            ),
-
-            Aviso(
-                titulo = "Horario de biblioteca",
-                mensaje = "Lunes a viernes de 8:00 a 15:00 h.",
-                fecha = "31 oct."
-            )
-        )
+    /** Lo llama el presentador cuando algo falla. */
+    fun mostrarError(mensaje: String) {
+        Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
     }
 }
