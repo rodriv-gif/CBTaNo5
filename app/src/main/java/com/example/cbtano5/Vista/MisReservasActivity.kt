@@ -1,39 +1,105 @@
 package com.example.cbtano5.Vista
 
-import com.example.cbtano5.Modelo.RetrofitCliente
-import com.example.cbtano5.Modelo.clsModeloReservas
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.cbtano5.Adaptador.MisReservasAdaptador
+import com.example.cbtano5.Modelo.dataReserva
+import com.example.cbtano5.Presentador.clsMisReservasPresenter
+import com.example.cbtano5.R
 
-class MisReservasActivity(val vista: MisReservasActivity) {
-    private val modelo = clsModeloReservas()
+class MisReservasActivity : AppCompatActivity() {
+    //Definimos los Componentes del diseño
+    lateinit var ivVolver: ImageView
+    lateinit var txtActivas: TextView
+    lateinit var rvReservas: RecyclerView
+    lateinit var navInicio: LinearLayout
 
-    fun cargarReservas(numControlId: Int) {
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                val reservas = modelo.obtenerReservas(numControlId)
-                vista.mostrarReservas(reservas)
-            } catch (e: Exception) {
-                vista.mostrarError("Error al cargar reservas: " + e.localizedMessage)
-            }
+    //definimos e iniciamos el presentador
+
+    val presentador = clsMisReservasPresenter(this)
+    var id = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_mis_reservas)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
+        //conectamos los componentes del diseño con las variables
+        ivVolver = findViewById(R.id.ivVolver)
+        txtActivas = findViewById(R.id.txtActivas)
+        rvReservas = findViewById(R.id.rvReservas)
+        navInicio = findViewById(R.id.navInicio)
+
+        //recibimos el id que mandó la pantalla de inicio
+        id = intent.getIntExtra("id", 0)
+
+        //le pedimos al presentador las reservas del usuario
+        presentador.cargarReservas(id)
+
+        // La flecha y el módulo "Inicio" de la barra inferior regresan a la pantalla anterior
+        ivVolver.setOnClickListener {
+            finish()
+        }
+        navInicio.setOnClickListener {
+            finish()
+        }
+
     }
 
-    fun cancelarReserva(idReserva: Int, numControlId: Int) {
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                val respuesta = modelo.cancelarReserva(idReserva, numControlId)
-                vista.mostrarMensaje(respuesta.mensaje)
-                cargarReservas(numControlId)   // actualiza la lista
-            } catch (e: Exception) {
-                vista.mostrarError("No se pudo cancelar la reserva")
+    // actualiza el contador Activas (n) y llena la lista con el adaptador
+    fun mostrarReservas(reservas: List<dataReserva>) {
+        txtActivas.text = "Activas (" + reservas.size + ")"
+        rvReservas.layoutManager = LinearLayoutManager(this)
+        rvReservas.adapter = MisReservasAdaptador(this, reservas)
+    }
+    //llamamos al presentador al tocar "cancelar"
+    //pide confirmar y si el usuario acepta  el presentador cancela la reserva
+    fun cancelarReserva(reserva: dataReserva){
+        AlertDialog.Builder(this)
+            .setTitle("¿Cancelar esta reserva?")
+            .setMessage("El ejemplar volverá a estar disponible.")
+            .setPositiveButton("Sí, cancelar") { _, _->
+                presentador.cancelarReserva(reserva.idReserva, id)
             }
-        }
+            .setNegativeButton("Volver", null)
+            .show()
+    }
+    //llamamos el adaptador al tocar "comprobante"
+    //el presentador arma la direccion del PDF
+    fun verComprobante(reserva: dataReserva){
+        presentador.verComprobante(reserva.idReserva, id)
+    }
+    //llamamos el presentador con la dirección del PDF
+    // se abre en el navegador para verlo o descargarlo
+    fun abrirComprobante(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 
-    fun verComprobante(idReserva: Int, numControlId: Int) {
-        val url = RetrofitCliente.BASE_URL + "comprobante_reserva.php?id_reserva=" + idReserva + "&id=" + numControlId
-        vista.abrirComprobante(url)
+    // Muestra un mensaje de éxito (por ejemplo "Reserva cancelada")
+    fun mostrarMensaje(mensaje: String) {
+        Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
+    }
+
+    //llamamos el presentador cuando algo falla
+    fun mostrarError(mensaje: String) {
+        Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
     }
 }

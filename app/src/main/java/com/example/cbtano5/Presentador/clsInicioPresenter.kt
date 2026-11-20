@@ -19,4 +19,12 @@ class clsInicioPresenter(val vista: InicioActivity) {
             }
         }
     }
+    // Decide qué texto mostrar según el tipo de usuario
+    fun cargarRol(tipo: String) {
+        if (tipo == "alumno") {
+            vista.mostrarRol("Alumno")
+        } else {
+            vista.mostrarRol("Trabajador")
+        }
+    }
 }
