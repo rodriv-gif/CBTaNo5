@@ -6,14 +6,16 @@ class clsModeloContrasenia {
         tipoUsuario: String,
         identificador: Int,
         contraseniaActual: String,
-        nuevaContrasenia: String
+        nuevaContrasenia: String,
+        contraseniaConfirmar: String
     ): ContraseniaResponse {
         return RetrofitCliente.apiService.cambiarContrasenia(
             dataContrasenia(
                 tipoUsuario,
                 identificador,
                 contraseniaActual,
-                nuevaContrasenia)
+                nuevaContrasenia,
+                contraseniaConfirmar)
         )
     }
 }
