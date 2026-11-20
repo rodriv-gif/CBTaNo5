@@ -4,19 +4,32 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cbtano5.Adaptador.AdeudosAdapter
 import com.example.cbtano5.Modelo.Adeudo
+import com.example.cbtano5.Presentador.clsAdeudosPresentador
 import com.example.cbtano5.R
 
 class Mis_Adeudos : AppCompatActivity() {
+
+    companion object {
+
+        // Mismo nombre que usan Inicio y Mis reservas para mandar el id del lector:
+        //   val intent = Intent(this, Mis_Adeudos::class.java)
+        //   intent.putExtra(Mis_Adeudos.EXTRA_ID_LECTOR, id)
+        //   startActivity(intent)
+        const val EXTRA_ID_LECTOR = "id"
+    }
 
     private lateinit var listaAdeudos: RecyclerView
     private lateinit var textoVacio: TextView
 
     private val adaptador = AdeudosAdapter()
+
+    private lateinit var presentador: clsAdeudosPresentador
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +50,14 @@ class Mis_Adeudos : AppCompatActivity() {
             finish()
         }
 
-        // Datos de ejemplo (los del wireframe) para ver la pantalla.
-        // Cuando conectes la API, quita esta línea y llama a
-        // mostrarAdeudos(respuesta.adeudos) con lo que regrese obtener_adeudos.php.
-        mostrarAdeudos(adeudosDeEjemplo())
+        // Mientras llegan los datos no se muestra "No tienes adeudos".
+        textoVacio.visibility = View.GONE
+
+        presentador = clsAdeudosPresentador(this)
+
+        val idLector = intent.getIntExtra(EXTRA_ID_LECTOR, 0)
+
+        presentador.cargarAdeudos(idLector)
     }
 
     /** Muestra la lista; si viene vacía, muestra "No tienes adeudos". */
@@ -57,24 +74,8 @@ class Mis_Adeudos : AppCompatActivity() {
         }
     }
 
-    private fun adeudosDeEjemplo(): List<Adeudo> {
-
-        return listOf(
-
-            Adeudo(
-                tipo = "vencido",
-                concepto = "Libro vencido",
-                diasRetraso = 5,
-                monto = 50.0,
-                adeudo = "50.00 MXN"
-            ),
-
-            Adeudo(
-                tipo = "reposicion",
-                concepto = "Libro a reponer",
-                diasRetraso = 0,
-                adeudo = "Libro a reponer"
-            )
-        )
+    /** Lo llama el presentador cuando algo falla. */
+    fun mostrarError(mensaje: String) {
+        Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
     }
 }
