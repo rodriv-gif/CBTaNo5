@@ -1,12 +1,12 @@
 package com.example.cbtano5.Presentador
 
 import com.example.cbtano5.Modelo.clsModeloAvisos
-import com.example.cbtano5.Vista.Avisos_Notificaciones
+import com.example.cbtano5.Vista.Avisos_NotificacionesActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class clsAvisosPresentador(val vista: Avisos_Notificaciones) {
+class clsAvisosPresentador(val vista: Avisos_NotificacionesActivity) {
 
     private val modelo = clsModeloAvisos()
 

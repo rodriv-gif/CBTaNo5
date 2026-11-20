@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/cbta_blanco"
     android:orientation="vertical"
-    tools:context=".Vista.Avisos_Notificaciones">
+    tools:context=".Vista.Avisos_NotificacionesActivity">
 
     <!-- Encabezado verde con flecha y título -->
     <LinearLayout

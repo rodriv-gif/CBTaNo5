@@ -9,21 +9,21 @@ import com.example.cbtano5.Modelo.PrestamoConfirmado
 import com.example.cbtano5.Presentador.clsLibroRecibidoPresentador
 import com.example.cbtano5.R
 
-class Libro_Recibido : AppCompatActivity() {
+class Libro_RecibidoActivity : AppCompatActivity() {
 
     companion object {
 
         // Opción 1 (la buena): mandar el id del lector y de la reserva.
         // Al abrirse, la pantalla confirma el préstamo en confirmar_recibido.php.
-        //   val intent = Intent(this, Libro_Recibido::class.java)
-        //   intent.putExtra(Libro_Recibido.EXTRA_ID_LECTOR, id)
-        //   intent.putExtra(Libro_Recibido.EXTRA_ID_RESERVA, idReserva)
+        //   val intent = Intent(this, Libro_RecibidoActivity::class.java)
+        //   intent.putExtra(Libro_RecibidoActivity.EXTRA_ID_LECTOR, id)
+        //   intent.putExtra(Libro_RecibidoActivity.EXTRA_ID_RESERVA, idReserva)
         //   startActivity(intent)
         const val EXTRA_ID_LECTOR = "id"
         const val EXTRA_ID_RESERVA = "id_reserva"
 
         // Opción 2: mandar directamente el mensaje ya listo (no llama a la API).
-        //   intent.putExtra(Libro_Recibido.EXTRA_MENSAJE, "Préstamo confirmado. Devuélvelo el 25/11/2026.")
+        //   intent.putExtra(Libro_RecibidoActivity.EXTRA_MENSAJE, "Préstamo confirmado. Devuélvelo el 25/11/2026.")
         const val EXTRA_MENSAJE = "mensaje"
     }
 

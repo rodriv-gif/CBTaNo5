@@ -26,6 +26,12 @@ class MiCuentaActivity : AppCompatActivity() {
     // Opción Mis préstamos
     private lateinit var opMisPrestamos: LinearLayout
 
+    // Opción Mis adeudos
+    private lateinit var opMisAdeudos: LinearLayout
+
+    // id del lector (el mismo que regresa el login)
+    private var idLector: Int = 0
+
     // Identificadores del lector
     private var matricula: String = ""
     private var numeroControl: String = ""
@@ -43,6 +49,7 @@ class MiCuentaActivity : AppCompatActivity() {
         btnRegresar = findViewById(R.id.btnRegresar)
 
         opMisPrestamos = findViewById(R.id.opMisPrestamos)
+        opMisAdeudos = findViewById(R.id.opMisAdeudos)
 
         // Inicializar el presentador
         presenter = clsMiCuentaPresentador(this)
@@ -50,6 +57,7 @@ class MiCuentaActivity : AppCompatActivity() {
         // Recibir identificadores enviados por otra pantalla
         matricula = intent.getStringExtra("MATRICULA") ?: ""
         numeroControl = intent.getStringExtra("NUMERO_CONTROL") ?: ""
+        idLector = intent.getIntExtra("id", 0)
 
         // Información inicial
         txtNombrePerfil.text = "Cargando cuenta..."
@@ -75,6 +83,13 @@ class MiCuentaActivity : AppCompatActivity() {
             intentPrestamos.putExtra("NUMERO_CONTROL", numeroControl)
 
             startActivity(intentPrestamos)
+        }
+
+        // Abrir Mis adeudos
+        opMisAdeudos.setOnClickListener {
+            val intentAdeudos = Intent(this, Mis_AdeudosActivity::class.java)
+            intentAdeudos.putExtra(Mis_AdeudosActivity.EXTRA_ID_LECTOR, idLector)
+            startActivity(intentAdeudos)
         }
 
         // Consultar la cuenta mediante MVP

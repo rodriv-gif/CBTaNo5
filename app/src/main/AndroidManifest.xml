@@ -33,10 +33,18 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize"/>
 
-        <activity android:name=".Vista.Avisos_Notificaciones" />
-        <activity android:name=".Vista.Mis_Adeudos" />
-        <activity android:name=".Vista.Reserva_Realizada" />
-        <activity android:name=".Vista.Libro_Recibido" />
+        <activity android:name=".Vista.Avisos_NotificacionesActivity" />
+        <activity android:name=".Vista.Mis_AdeudosActivity" />
+        <activity android:name=".Vista.Reserva_RealizadaActivity" />
+        <activity android:name=".Vista.Libro_RecibidoActivity" />
+
+        <!-- Pantallas que existían pero no estaban registradas (sin esto la app se cierra al abrirlas) -->
+        <activity android:name=".Vista.CatalogoLibrosActivity" />
+        <activity android:name=".Vista.ReservarLibroActivity" />
+        <activity android:name=".Vista.DetalleLibroActivity" />
+        <activity android:name=".Vista.MiCuentaActivity" />
+        <activity android:name=".Vista.MisPrestamosActivity" />
+        <activity android:name=".Vista.CambiarContraseniaActivity" />
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.example.cbtano5.Vista
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -12,6 +13,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.cbtano5.Modelo.dataReserva
 import com.example.cbtano5.Presentador.clsReservarPresentador
 import com.example.cbtano5.R
 import java.text.SimpleDateFormat
@@ -75,8 +77,17 @@ class ReservarLibroActivity : AppCompatActivity() {
         val fechaRecoger = txtFechaRecoger.text.toString().trim()
         presentador.crearReserva(tipoUsuario, identificador, idLibro, fechaRecoger)
     }
-    fun reservaExitosa(datos: Any) {
-        Toast.makeText(this, "Reserva realizada con éxito", Toast.LENGTH_SHORT).show()
+    // Al reservar se abre la pantalla Reserva realizada con el id del lector y de la reserva
+    fun reservaExitosa(datos: dataReserva) {
+        val intent = Intent(this, Reserva_RealizadaActivity::class.java)
+        intent.putExtra(Reserva_RealizadaActivity.EXTRA_ID_LECTOR, identificador)
+        intent.putExtra(Reserva_RealizadaActivity.EXTRA_ID_RESERVA, datos.idReserva)
+        // Respaldo por si la API no regresa el id de la reserva
+        intent.putExtra(Reserva_RealizadaActivity.EXTRA_TITULO, txtTituloLibro.text.toString())
+        if (datos.vigencia.isNotBlank()) {
+            intent.putExtra(Reserva_RealizadaActivity.EXTRA_VIGENCIA, datos.vigencia)
+        }
+        startActivity(intent)
         finish()
     }
 

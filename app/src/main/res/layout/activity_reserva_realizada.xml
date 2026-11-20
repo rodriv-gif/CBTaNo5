@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/cbta_blanco"
     android:orientation="vertical"
-    tools:context=".Vista.Reserva_Realizada">
+    tools:context=".Vista.Reserva_RealizadaActivity">
 
     <!-- Encabezado verde (sin título en el wireframe) -->
     <LinearLayout

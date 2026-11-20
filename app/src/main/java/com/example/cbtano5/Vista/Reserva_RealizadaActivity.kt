@@ -9,22 +9,22 @@ import com.example.cbtano5.Modelo.ReservaRealizada
 import com.example.cbtano5.Presentador.clsReservaRealizadaPresentador
 import com.example.cbtano5.R
 
-class Reserva_Realizada : AppCompatActivity() {
+class Reserva_RealizadaActivity : AppCompatActivity() {
 
     companion object {
 
         // Opción 1 (la buena): mandar el id del lector y de la reserva.
         // La pantalla pide los datos a obtener_reserva_realizada.php.
-        //   val intent = Intent(this, Reserva_Realizada::class.java)
-        //   intent.putExtra(Reserva_Realizada.EXTRA_ID_LECTOR, id)
-        //   intent.putExtra(Reserva_Realizada.EXTRA_ID_RESERVA, idReserva)
+        //   val intent = Intent(this, Reserva_RealizadaActivity::class.java)
+        //   intent.putExtra(Reserva_RealizadaActivity.EXTRA_ID_LECTOR, id)
+        //   intent.putExtra(Reserva_RealizadaActivity.EXTRA_ID_RESERVA, idReserva)
         //   startActivity(intent)
         const val EXTRA_ID_LECTOR = "id"
         const val EXTRA_ID_RESERVA = "id_reserva"
 
         // Opción 2: mandar directamente el texto ya listo.
-        //   intent.putExtra(Reserva_Realizada.EXTRA_TITULO, "Cien años de soledad")
-        //   intent.putExtra(Reserva_Realizada.EXTRA_VIGENCIA, "3 días (hasta el 19 de nov. de 2026)")
+        //   intent.putExtra(Reserva_RealizadaActivity.EXTRA_TITULO, "Cien años de soledad")
+        //   intent.putExtra(Reserva_RealizadaActivity.EXTRA_VIGENCIA, "3 días (hasta el 19 de nov. de 2026)")
         const val EXTRA_TITULO = "titulo"
         const val EXTRA_VIGENCIA = "vigencia_texto"
     }

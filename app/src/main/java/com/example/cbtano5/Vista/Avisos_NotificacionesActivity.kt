@@ -8,69 +8,69 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cbtano5.Adaptador.AdeudosAdapter
-import com.example.cbtano5.Modelo.Adeudo
-import com.example.cbtano5.Presentador.clsAdeudosPresentador
+import com.example.cbtano5.Adaptador.AvisosAdapter
+import com.example.cbtano5.Modelo.Aviso
+import com.example.cbtano5.Presentador.clsAvisosPresentador
 import com.example.cbtano5.R
 
-class Mis_Adeudos : AppCompatActivity() {
+class Avisos_NotificacionesActivity : AppCompatActivity() {
 
     companion object {
 
         // Mismo nombre que usan Inicio y Mis reservas para mandar el id del lector:
-        //   val intent = Intent(this, Mis_Adeudos::class.java)
-        //   intent.putExtra(Mis_Adeudos.EXTRA_ID_LECTOR, id)
+        //   val intent = Intent(this, Avisos_NotificacionesActivity::class.java)
+        //   intent.putExtra(Avisos_NotificacionesActivity.EXTRA_ID_LECTOR, id)
         //   startActivity(intent)
         const val EXTRA_ID_LECTOR = "id"
     }
 
-    private lateinit var listaAdeudos: RecyclerView
+    private lateinit var listaAvisos: RecyclerView
     private lateinit var textoVacio: TextView
 
-    private val adaptador = AdeudosAdapter()
+    private val adaptador = AvisosAdapter()
 
-    private lateinit var presentador: clsAdeudosPresentador
+    private lateinit var presentador: clsAvisosPresentador
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mis_adeudos)
+        setContentView(R.layout.activity_avisos_notificaciones)
 
         ajustarBarrasDelSistema(
             findViewById(R.id.raiz),
             findViewById(R.id.encabezado)
         )
 
-        listaAdeudos = findViewById(R.id.lista_adeudos)
+        listaAvisos = findViewById(R.id.lista_avisos)
         textoVacio = findViewById(R.id.texto_vacio)
 
-        listaAdeudos.layoutManager = LinearLayoutManager(this)
-        listaAdeudos.adapter = adaptador
+        listaAvisos.layoutManager = LinearLayoutManager(this)
+        listaAvisos.adapter = adaptador
 
         findViewById<ImageButton>(R.id.btn_volver).setOnClickListener {
             finish()
         }
 
-        // Mientras llegan los datos no se muestra "No tienes adeudos".
+        // Mientras llegan los datos no se muestra "No tienes notificaciones".
         textoVacio.visibility = View.GONE
 
-        presentador = clsAdeudosPresentador(this)
+        presentador = clsAvisosPresentador(this)
 
         val idLector = intent.getIntExtra(EXTRA_ID_LECTOR, 0)
 
-        presentador.cargarAdeudos(idLector)
+        presentador.cargarAvisos(idLector)
     }
 
-    /** Muestra la lista; si viene vacía, muestra "No tienes adeudos". */
-    fun mostrarAdeudos(adeudos: List<Adeudo>) {
+    /** Muestra la lista; si viene vacía, muestra "No tienes notificaciones". */
+    fun mostrarAvisos(avisos: List<Aviso>) {
 
-        adaptador.actualizar(adeudos)
+        adaptador.actualizar(avisos)
 
-        if (adeudos.isEmpty()) {
+        if (avisos.isEmpty()) {
             textoVacio.visibility = View.VISIBLE
-            listaAdeudos.visibility = View.GONE
+            listaAvisos.visibility = View.GONE
         } else {
             textoVacio.visibility = View.GONE
-            listaAdeudos.visibility = View.VISIBLE
+            listaAvisos.visibility = View.VISIBLE
         }
     }
 

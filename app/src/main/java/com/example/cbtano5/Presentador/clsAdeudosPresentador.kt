@@ -1,12 +1,12 @@
 package com.example.cbtano5.Presentador
 
 import com.example.cbtano5.Modelo.clsModeloAdeudos
-import com.example.cbtano5.Vista.Mis_Adeudos
+import com.example.cbtano5.Vista.Mis_AdeudosActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class clsAdeudosPresentador(val vista: Mis_Adeudos) {
+class clsAdeudosPresentador(val vista: Mis_AdeudosActivity) {
 
     private val modelo = clsModeloAdeudos()
 

@@ -1,12 +1,12 @@
 package com.example.cbtano5.Presentador
 
 import com.example.cbtano5.Modelo.clsModeloLibroRecibido
-import com.example.cbtano5.Vista.Libro_Recibido
+import com.example.cbtano5.Vista.Libro_RecibidoActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class clsLibroRecibidoPresentador(val vista: Libro_Recibido) {
+class clsLibroRecibidoPresentador(val vista: Libro_RecibidoActivity) {
 
     private val modelo = clsModeloLibroRecibido()
 
