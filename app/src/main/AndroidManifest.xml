@@ -37,6 +37,12 @@
         <activity android:name=".Vista.Mis_Adeudos" />
         <activity android:name=".Vista.Reserva_Realizada" />
         <activity android:name=".Vista.Libro_Recibido" />
+        <activity android:name=".Vista.MiCuentaActivity" android:exported="false" />
+        <activity android:name=".Vista.MisPrestamosActivity" android:exported="false" />
+        <activity android:name=".Vista.DetalleLibroActivity" android:exported="false" />
+        <activity android:name=".Vista.CatalogoLibrosActivity" android:exported="false" />
+        <activity android:name=".Vista.ReservarLibroActivity" android:exported="false" />
+        <activity android:name=".Vista.CambiarContraseniaActivity" android:exported="false" />
     </application>
 
 </manifest>
