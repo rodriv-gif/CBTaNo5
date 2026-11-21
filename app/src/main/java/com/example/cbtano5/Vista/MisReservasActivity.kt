@@ -25,11 +25,15 @@ class MisReservasActivity : AppCompatActivity() {
     lateinit var txtActivas: TextView
     lateinit var rvReservas: RecyclerView
     lateinit var navInicio: LinearLayout
+    lateinit var navCatalogo: LinearLayout
+    lateinit var navCuenta: LinearLayout
 
     //definimos e iniciamos el presentador
 
     val presentador = clsMisReservasPresenter(this)
     var id = 0
+    var tipo = ""
+    var nombre = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +50,13 @@ class MisReservasActivity : AppCompatActivity() {
         txtActivas = findViewById(R.id.txtActivas)
         rvReservas = findViewById(R.id.rvReservas)
         navInicio = findViewById(R.id.navInicio)
+        navCatalogo = findViewById(R.id.navCatalogo)
+        navCuenta = findViewById(R.id.navCuenta)
 
         //recibimos el id que mandó la pantalla de inicio
         id = intent.getIntExtra("id", 0)
+        tipo = intent.getStringExtra("tipo") ?: ""
+        nombre = intent.getStringExtra("nombre") ?: ""
 
         //le pedimos al presentador las reservas del usuario
         presentador.cargarReservas(id)
@@ -59,6 +67,12 @@ class MisReservasActivity : AppCompatActivity() {
         }
         navInicio.setOnClickListener {
             finish()
+        }
+        navCatalogo.setOnClickListener {
+            abrirCatalogo()
+        }
+        navCuenta.setOnClickListener {
+            abrirMiCuenta()
         }
 
     }
@@ -88,6 +102,26 @@ class MisReservasActivity : AppCompatActivity() {
     }
     //llamamos el presentador con la dirección del PDF
     // se abre en el navegador para verlo o descargarlo
+    // Abre el Catálogo mandando id, nombre y tipo
+    fun abrirCatalogo() {
+        val intent = Intent(this, CatalogoLibrosActivity::class.java)
+        intent.putExtra("ID_USUARIO", id)
+        intent.putExtra("NOMBRE_LECTOR", nombre)
+        intent.putExtra("TIPO_USUARIO", tipo)
+        startActivity(intent)
+    }
+
+    // Abre Mi cuenta: alumno manda MATRICULA y trabajador NUMERO_CONTROL
+    fun abrirMiCuenta() {
+        val intent = Intent(this, MiCuentaActivity::class.java)
+        if (tipo == "alumno") {
+            intent.putExtra("MATRICULA", id.toString())
+        } else {
+            intent.putExtra("NUMERO_CONTROL", id.toString())
+        }
+        startActivity(intent)
+    }
+
     fun abrirComprobante(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)

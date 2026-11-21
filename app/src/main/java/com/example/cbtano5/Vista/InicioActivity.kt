@@ -115,6 +115,8 @@ class InicioActivity : AppCompatActivity() {
     fun abrirMisReservas() {
         val intent = Intent(this, MisReservasActivity::class.java)
         intent.putExtra("id", id)
+        intent.putExtra("tipo", tipo)
+        intent.putExtra("nombre", nombre)
         startActivity(intent)
     }
 
