@@ -60,7 +60,7 @@ class InicioActivity : AppCompatActivity() {
         navCatalogo = findViewById(R.id.navCatalogo)
         txtRol = findViewById(R.id.txtRol)
 
-        // Recibimos el id que mandó el login con putExtra("id", id)
+        // Recibimos el id que mandó el login con putExtra
         id = intent.getIntExtra("id", 0)
         tipo = intent.getStringExtra("tipo") ?: ""
 
@@ -68,7 +68,7 @@ class InicioActivity : AppCompatActivity() {
         presentador.cargarInicio(id)
 
         // Recibimos el tipo de usuario que mandó el login y se lo pasamos al presentador
-        presentador.cargarRol(intent.getStringExtra("tipo") ?: "")
+        presentador.cargarRol(tipo)
 
         // Al tocar mis reservas  botón o barra inferior se abre esa pantalla
         cardReservas.setOnClickListener {
@@ -127,7 +127,7 @@ class InicioActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    // Abre el Catálogo mandando id, nombre y tipo (así lo pide esa pantalla)
+    // Abre el Catálogo mandando id, nombre y tipo
     fun abrirCatalogo() {
         val intent = Intent(this, CatalogoLibrosActivity::class.java)
         intent.putExtra("ID_USUARIO", id)
@@ -150,7 +150,7 @@ class InicioActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    // Alumno manda MATRICULA y trabajador manda NUMERO_CONTROL (así lo piden las pantallas de mis compañeros)
+    // Alumno manda MATRICULA y trabajador manda NUMERO_CONTROL
     fun mandarIdentificador(intent: Intent) {
         if (tipo == "alumno") {
             intent.putExtra("MATRICULA", id.toString())
