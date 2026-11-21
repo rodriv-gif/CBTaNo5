@@ -11,5 +11,6 @@ data class dataReserva(
     @SerialName("autor") val autor: String = "",
     @SerialName("portada") val portada: String? = null,
     @SerialName("fecha_reserva") val fechaReserva: String = "",
+    @SerialName("fecha_limite") val fechaLimite: String = "",
     @SerialName("vigencia") val vigencia: String = ""
 )

@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     }
     fun ejecutarIniciarSesion() {
         presentador.iniciarSesion(
-            txtNumeroControl.text.toString().trim(),   // trim() quita espacios sobrantes
+            txtNumeroControl.text.toString().trim(),
             txtContrasenia.text.toString()
         )
     }

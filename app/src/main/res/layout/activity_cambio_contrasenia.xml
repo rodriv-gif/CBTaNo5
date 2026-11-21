@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cbta_blanco"
-    android:orientation="vertical">
-<!--  tools:context=".Vista.CambioContraseniaActivity"-->
+    android:orientation="vertical"
+    tools:context=".Vista.CambiarContraseniaActivity">
 
     <!-- Encabezado verde superior con botón de regresar y título -->
     <LinearLayout
