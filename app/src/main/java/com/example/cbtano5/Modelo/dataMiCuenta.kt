@@ -9,7 +9,9 @@ import kotlinx.serialization.json.JsonPrimitive
     val nombre_completo: String? = null,
     val matricula: JsonPrimitive? = null,
     val numero_control: String? = null,
-    val fecha_creacion: String? = null
+    val fecha_creacion: String? = null,
+    val carrera: String? = null,
+    val nombre_carrera: String? = null
 )
 
 @Serializable data class dataResumenCuenta(

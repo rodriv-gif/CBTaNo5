@@ -79,7 +79,7 @@ class CatalogoLibrosActivity : AppCompatActivity() {
     }
 
     fun seleccionarLibro(libro: dataLibro) {
-        val intent = Intent(this, ReservarLibroActivity::class.java)
+        val intent = Intent(this, DetalleLibroActivity::class.java)
 
         intent.putExtra("ID_LIBRO", libro.idLibro)
         intent.putExtra("TITULO_LIBRO", libro.titulo)
