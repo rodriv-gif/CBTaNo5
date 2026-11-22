@@ -1,5 +1,6 @@
 package com.example.cbtano5.Vista
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -26,9 +27,16 @@ class DetalleLibroActivity : AppCompatActivity() {
     private lateinit var btnRegresar: TextView
     private lateinit var btnReservarLibro: Button
 
+    // Datos del usuario y del libro
+    private var idLibro: Int = 0
+    private var idUsuario: Int = 0
+    private var nombreLector: String = ""
+    private var tipoUsuario: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalle_libro)
+
         // Inicializar vistas
         imgPortadaLibro = findViewById(R.id.imgPortadaLibro)
         txtTituloLibro = findViewById(R.id.txtTituloLibro)
@@ -44,20 +52,36 @@ class DetalleLibroActivity : AppCompatActivity() {
         // Inicializar presentador
         presenter = clsDetalleLibroPresentador(this)
 
-        // Obtener ID enviado desde catálogo
-        val idLibro = intent.getIntExtra("ID_LIBRO", 0)
+        // Obtener datos enviados desde el catálogo
+        idLibro = intent.getIntExtra("ID_LIBRO", 0)
+        idUsuario = intent.getIntExtra("ID_USUARIO", 0)
+        nombreLector = intent.getStringExtra("NOMBRE_LECTOR") ?: ""
+        tipoUsuario = intent.getStringExtra("TIPO_USUARIO") ?: ""
 
         // Botón regresar
         btnRegresar.setOnClickListener {
             finish()
         }
-        // Todavía no se conecta la reserva
-        btnReservarLibro.isEnabled = false
+
+        // Habilitar y conectar el botón Reservar
+        btnReservarLibro.isEnabled = true
+        btnReservarLibro.setOnClickListener {
+            val intentReservar = Intent(this, ReservarLibroActivity::class.java)
+            intentReservar.putExtra("ID_LIBRO", idLibro)
+            intentReservar.putExtra("TITULO_LIBRO", txtTituloLibro.text.toString())
+            intentReservar.putExtra("AUTOR_LIBRO", txtAutorLibro.text.toString())
+            intentReservar.putExtra("CATEGORIA_LIBRO", txtCategoriaLibro.text.toString())
+            intentReservar.putExtra("ID_USUARIO", idUsuario)
+            intentReservar.putExtra("NOMBRE_LECTOR", nombreLector)
+            intentReservar.putExtra("TIPO_USUARIO", tipoUsuario)
+            startActivity(intentReservar)
+        }
+
         // Consultar información del libro
         presenter.cargarDetalle(idLibro)
     }
-    fun mostrarDetalleLibro(detalle: DetalleLibroResponse) {
 
+    fun mostrarDetalleLibro(detalle: DetalleLibroResponse) {
         val datos = detalle.data ?: return
         val libro = datos.libro
 
@@ -90,10 +114,10 @@ class DetalleLibroActivity : AppCompatActivity() {
         }
 
         // Sinopsis y portada:
-        // La API actual todavía no devuelve esos datos.
         txtSinopsis.text = "Sinopsis no disponible"
         imgPortadaLibro.setImageResource(android.R.drawable.ic_menu_gallery)
     }
+
     fun mostrarError(mensaje: String) {
         Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
     }
