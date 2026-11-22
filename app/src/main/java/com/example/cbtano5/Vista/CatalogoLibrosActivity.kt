@@ -29,6 +29,11 @@ class CatalogoLibrosActivity : AppCompatActivity() {
     private lateinit var adaptadorCategorias: categoriaAdaptador
     private lateinit var adaptadorLibros: libroAdaptador
 
+    // Variables para la barra de navegación
+    private lateinit var navInicio: android.widget.LinearLayout
+    private lateinit var navReservas: android.widget.LinearLayout
+    private lateinit var navCuenta: android.widget.LinearLayout
+
     private var identificador: Int = 0
     private var nombreLector: String = ""
     private var tipoUsuario: String = ""
@@ -49,6 +54,11 @@ class CatalogoLibrosActivity : AppCompatActivity() {
         btnBuscar = findViewById(R.id.btnBuscarLibro)
         rvCategorias = findViewById(R.id.rvCategorias)
         rvLibros = findViewById(R.id.rvLibros)
+
+        // Enlazamos la barra de navegación
+        navInicio = findViewById(R.id.nav_inicio)
+        navReservas = findViewById(R.id.nav_reservas)
+        navCuenta = findViewById(R.id.nav_cuenta)
 
         rvCategorias.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         adaptadorCategorias = categoriaAdaptador(this, emptyList())
@@ -72,19 +82,50 @@ class CatalogoLibrosActivity : AppCompatActivity() {
             finish()
         }
 
-        btnBuscar.setOnClickListener {
-            val texto = txtBuscar.text.toString()
-            presentador.buscarLibros(texto)
+        // Búsqueda en tiempo real
+        txtBuscar.addTextChangedListener(object : android.text.TextWatcher {
+            override fun afterTextChanged(s: android.text.Editable?) {
+                presentador.buscarLibros(s.toString())
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        // Clics de la barra de navegación
+        navInicio.setOnClickListener {
+            val intent = Intent(this, InicioActivity::class.java)
+            intent.putExtra("id", identificador)
+            intent.putExtra("tipo", tipoUsuario)
+            startActivity(intent)
+            finish()
+        }
+
+        navReservas.setOnClickListener {
+            val intent = Intent(this, MisReservasActivity::class.java)
+            intent.putExtra("id", identificador)
+            intent.putExtra("tipo", tipoUsuario)
+            intent.putExtra("nombre", nombreLector)
+            startActivity(intent)
+            finish()
+        }
+
+        navCuenta.setOnClickListener {
+            val intent = Intent(this, MiCuentaActivity::class.java)
+            if (tipoUsuario.lowercase() == "alumno") {
+                intent.putExtra("MATRICULA", identificador.toString())
+            } else {
+                intent.putExtra("NUMERO_CONTROL", identificador.toString())
+            }
+            startActivity(intent)
+            finish()
         }
     }
 
     fun seleccionarLibro(libro: dataLibro) {
-        val intent = Intent(this, ReservarLibroActivity::class.java)
+        val intent = Intent(this, DetalleLibroActivity::class.java)
 
         intent.putExtra("ID_LIBRO", libro.idLibro)
-        intent.putExtra("TITULO_LIBRO", libro.titulo)
-        intent.putExtra("AUTOR_LIBRO", libro.autores)
-        intent.putExtra("CATEGORIA_LIBRO", "")
+        intent.putExtra("PORTADA_LIBRO", libro.portada)
 
         intent.putExtra("ID_USUARIO", identificador)
         intent.putExtra("NOMBRE_LECTOR", nombreLector)
@@ -94,6 +135,7 @@ class CatalogoLibrosActivity : AppCompatActivity() {
     }
 
     fun seleccionarCategoria(categoria: dataCategoria) {
+        txtBuscar.setText("")
         presentador.seleccionarCategoria(categoria.idCategoria)
     }
 
