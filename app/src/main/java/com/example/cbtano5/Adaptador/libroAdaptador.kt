@@ -17,6 +17,7 @@ class libroAdaptador(
 ) : RecyclerView.Adapter<libroAdaptador.LibroViewHolder>() {
 
     private val baseUrl = "https://biblioteccbtan5.4cuthh.com/bibliocbta5/"
+    private val rutaPortadas = "upload/libros/principales/"
 
     class LibroViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgPortada: ImageView = itemView.findViewById(R.id.imgPortadaLibro)
@@ -37,7 +38,13 @@ class libroAdaptador(
         holder.tvAutor.text = libro.autores
         holder.tvCategoria.visibility = View.GONE
 
-        val urlImagen = baseUrl + libro.portada
+        val portada = libro.portada.trim()
+        val urlImagen = when {
+            portada.startsWith("http") -> portada
+            portada.startsWith("upload/") -> baseUrl + portada
+            else -> baseUrl + rutaPortadas + portada
+        }
+
         Glide.with(holder.itemView.context)
             .load(urlImagen)
             .placeholder(R.drawable.cbta_ic_portada)
@@ -48,7 +55,6 @@ class libroAdaptador(
             activity.seleccionarLibro(libro)
         }
     }
-
     override fun getItemCount(): Int {
         return listaLibros.size
     }
