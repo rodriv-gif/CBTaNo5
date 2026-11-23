@@ -42,7 +42,7 @@ class MisReservasAdaptador(val activity: MisReservasActivity, val lista: List<da
         holder.txtVigencia.text = reserva.vigencia
 
         // Portada: se descarga con Glide; mientras carga o si falla se muestra un ícono
-        val urlImagenCompleta = RetrofitCliente.BASE_URL + reserva.portada
+        val urlImagenCompleta = RetrofitCliente.BASE_URL + "upload/libros/principales/" + reserva.portada
         Glide.with(holder.itemView.context)
             .load(urlImagenCompleta)
             .placeholder(android.R.drawable.ic_menu_gallery)
