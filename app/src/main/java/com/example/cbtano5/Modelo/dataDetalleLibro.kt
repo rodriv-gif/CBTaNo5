@@ -12,6 +12,9 @@ data class dataDetalleLibro(
     @SerialName("titulo_libro")
     val titulo: String,
 
+    @SerialName("portada")
+    val portada: String? = null,
+
     @SerialName("ISBN")
     val isbn: String? = null,
 

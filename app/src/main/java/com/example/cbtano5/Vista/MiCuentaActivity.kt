@@ -33,6 +33,7 @@ class MiCuentaActivity : AppCompatActivity() {
     private var navInicio: LinearLayout? = null
     private var navCatalogo: LinearLayout? = null
     private var navReservas: LinearLayout? = null
+    private var navCuenta: LinearLayout? = null
 
     // Identificadores y datos del lector
     private var matricula: String = ""
@@ -59,6 +60,7 @@ class MiCuentaActivity : AppCompatActivity() {
         navInicio = findViewById(R.id.nav_inicio)
         navCatalogo = findViewById(R.id.nav_catalogo)
         navReservas = findViewById(R.id.nav_reservas)
+        navCuenta = findViewById(R.id.nav_cuenta)
 
         // Inicializar el presentador
         presenter = clsMiCuentaPresentador(this)
@@ -123,6 +125,14 @@ class MiCuentaActivity : AppCompatActivity() {
 
         // Navegación Inferior
         navInicio?.setOnClickListener {
+            val idFinal = idLector.takeIf { it != 0 }
+                ?: matricula.toIntOrNull()
+                ?: numeroControl.toIntOrNull()
+                ?: 0
+            val intent = Intent(this, InicioActivity::class.java)
+            intent.putExtra("id", idFinal)
+            intent.putExtra("tipo", tipoUsuarioStr)
+            startActivity(intent)
             finish()
         }
 
@@ -137,6 +147,7 @@ class MiCuentaActivity : AppCompatActivity() {
             intentCat.putExtra("NOMBRE_LECTOR", txtNombrePerfil.text.toString())
             intentCat.putExtra("TIPO_USUARIO", tipoUsuarioStr)
             startActivity(intentCat)
+            finish()
         }
 
         navReservas?.setOnClickListener {
@@ -150,6 +161,11 @@ class MiCuentaActivity : AppCompatActivity() {
             intentRes.putExtra("tipo", tipoUsuarioStr)
             intentRes.putExtra("nombre", txtNombrePerfil.text.toString())
             startActivity(intentRes)
+            finish()
+        }
+
+        navCuenta?.setOnClickListener {
+            // Ya estamos en Mi cuenta
         }
 
         // Consultar la cuenta mediante MVP

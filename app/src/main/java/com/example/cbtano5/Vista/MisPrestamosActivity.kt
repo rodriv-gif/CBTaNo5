@@ -1,7 +1,9 @@
 package com.example.cbtano5.Vista
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +22,11 @@ class MisPrestamosActivity : AppCompatActivity() {
     private lateinit var txtSinPrestamos: TextView
     private lateinit var btnRegresar: TextView
     private lateinit var rvPrestamos: RecyclerView
+
+    private lateinit var navInicio: LinearLayout
+    private lateinit var navCatalogo: LinearLayout
+    private lateinit var navReservas: LinearLayout
+    private lateinit var navCuenta: LinearLayout
 
     private lateinit var adaptador: PrestamosAdaptador
 
@@ -47,6 +54,63 @@ class MisPrestamosActivity : AppCompatActivity() {
         // Identificadores recibidos
         val matricula = intent.getStringExtra("MATRICULA") ?: ""
         val numeroControl = intent.getStringExtra("NUMERO_CONTROL") ?: ""
+
+        navInicio = findViewById(R.id.nav_inicio)
+        navCatalogo = findViewById(R.id.nav_catalogo)
+        navReservas = findViewById(R.id.nav_reservas)
+        navCuenta = findViewById(R.id.nav_cuenta)
+
+        val idUsuario = intent.getIntExtra("ID_USUARIO", 0).takeIf { it != 0 }
+            ?: intent.getIntExtra("id", 0).takeIf { it != 0 }
+            ?: matricula.toIntOrNull()
+            ?: numeroControl.toIntOrNull()
+            ?: 0
+        val tipoUsuario = intent.getStringExtra("TIPO_USUARIO") ?: intent.getStringExtra("tipo") ?: if (matricula.isNotEmpty()) "alumno" else "trabajador"
+        val nombreLector = intent.getStringExtra("NOMBRE_LECTOR") ?: intent.getStringExtra("nombre") ?: ""
+
+        navInicio.setOnClickListener {
+            val intentNav = Intent(this, InicioActivity::class.java)
+            intentNav.putExtra("id", idUsuario)
+            intentNav.putExtra("tipo", tipoUsuario)
+            startActivity(intentNav)
+            finish()
+        }
+
+        navCatalogo.setOnClickListener {
+            val intentNav = Intent(this, CatalogoLibrosActivity::class.java)
+            intentNav.putExtra("ID_USUARIO", idUsuario)
+            intentNav.putExtra("NOMBRE_LECTOR", nombreLector)
+            intentNav.putExtra("TIPO_USUARIO", tipoUsuario)
+            startActivity(intentNav)
+            finish()
+        }
+
+        navReservas.setOnClickListener {
+            val intentNav = Intent(this, MisReservasActivity::class.java)
+            intentNav.putExtra("id", idUsuario)
+            intentNav.putExtra("tipo", tipoUsuario)
+            intentNav.putExtra("nombre", nombreLector)
+            startActivity(intentNav)
+            finish()
+        }
+
+        navCuenta.setOnClickListener {
+            val intentNav = Intent(this, MiCuentaActivity::class.java)
+            if (matricula.isNotEmpty()) {
+                intentNav.putExtra("MATRICULA", matricula)
+            } else if (numeroControl.isNotEmpty()) {
+                intentNav.putExtra("NUMERO_CONTROL", numeroControl)
+            } else if (idUsuario != 0) {
+                if (tipoUsuario.lowercase() == "alumno") {
+                    intentNav.putExtra("MATRICULA", idUsuario.toString())
+                } else {
+                    intentNav.putExtra("NUMERO_CONTROL", idUsuario.toString())
+                }
+            }
+            intentNav.putExtra("id", idUsuario)
+            startActivity(intentNav)
+            finish()
+        }
 
         // Botón regresar
         btnRegresar.setOnClickListener {

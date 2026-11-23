@@ -27,7 +27,22 @@ data class dataPrestamo(
     val fechaDevolucion: String? = null,
 
     @SerialName("fecha_devolucion_real")
-    val fechaDevolucionReal: String? = null
+    val fechaDevolucionReal: String? = null,
+
+    @SerialName("portada")
+    val portada: String? = null,
+
+    @SerialName("portada_libro")
+    val portadaLibro: String? = null,
+
+    @SerialName("imagen")
+    val imagen: String? = null,
+
+    @SerialName("imagen_libro")
+    val imagenLibro: String? = null,
+
+    @SerialName("libro_portada")
+    val libroPortada: String? = null
 )
 
 @Serializable data class dataResumenPrestamos(val total: Int = 0, val prestados: Int = 0, val devueltos: Int = 0, val vencidos: Int = 0)
