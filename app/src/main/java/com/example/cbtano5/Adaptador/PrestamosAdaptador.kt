@@ -6,12 +6,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.cbtano5.R
 import com.example.cbtano5.Modelo.dataPrestamo
 
 class PrestamosAdaptador(
     private var listaPrestamos: List<dataPrestamo>
 ) : RecyclerView.Adapter<PrestamosAdaptador.PrestamoViewHolder>() {
+
+    private val baseUrl = "https://biblioteccbtan5.4cuthh.com/bibliocbta5/"
+    private val rutaPortadas = "upload/libros/principales/"
 
     class PrestamoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -47,7 +51,25 @@ class PrestamosAdaptador(
 
         holder.txtFechaDevolucion.text = mostrarFecha(prestamo.fechaDevolucion)
 
-        holder.imgPortadaPrestamo.setImageResource(android.R.drawable.ic_menu_gallery)
+        val portadaRaw = listOfNotNull(
+            prestamo.portada,
+            prestamo.portadaLibro,
+            prestamo.imagen,
+            prestamo.imagenLibro,
+            prestamo.libroPortada
+        ).firstOrNull { it.isNotBlank() }?.trim() ?: ""
+
+        val urlImagen = when {
+            portadaRaw.startsWith("http") -> portadaRaw
+            portadaRaw.startsWith("upload/") -> baseUrl + portadaRaw
+            else -> baseUrl + rutaPortadas + portadaRaw
+        }
+
+        Glide.with(holder.itemView.context)
+            .load(if (portadaRaw.isNotEmpty()) urlImagen else null)
+            .placeholder(R.drawable.cbta_ic_portada)
+            .error(R.drawable.cbta_ic_portada)
+            .into(holder.imgPortadaPrestamo)
     }
 
 
