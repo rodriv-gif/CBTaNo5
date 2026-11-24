@@ -14,6 +14,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.cbtano5.Presentador.clsReservarPresentador
 import com.example.cbtano5.R
+import com.example.cbtano5.Modelo.dataReserva
+import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -41,7 +43,8 @@ class ReservarLibroActivity : AppCompatActivity() {
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.lytRaizReservar)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            findViewById<View>(R.id.lytEncabezadoReservar).setPadding(0, systemBars.top, 0, 0)
+            v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom)
             insets
         }
         btnVolverReservar = findViewById(R.id.btnVolverReservar)
@@ -62,6 +65,21 @@ class ReservarLibroActivity : AppCompatActivity() {
         identificador = intent.getIntExtra("ID_USUARIO", 0)
         txtLector.setText(intent.getStringExtra("NOMBRE_LECTOR") ?: "")
         txtTipoUsuario.setText(intent.getStringExtra("TIPO_USUARIO") ?: "")
+        
+        val portada = intent.getStringExtra("PORTADA_LIBRO")?.trim() ?: ""
+        val baseUrl = "https://biblioteccbtan5.4cuthh.com/bibliocbta5/"
+        val rutaPortadas = "upload/libros/principales/"
+        val urlImagen = when {
+            portada.startsWith("http") -> portada
+            portada.startsWith("upload/") -> baseUrl + portada
+            else -> baseUrl + rutaPortadas + portada
+        }
+
+        Glide.with(this)
+            .load(urlImagen)
+            .placeholder(R.drawable.cbta_ic_portada)
+            .error(R.drawable.cbta_ic_portada)
+            .into(imgPortadaLibro)
 
         txtFechaRecoger.setText(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()))
         txtFechaRecoger.isEnabled = false
@@ -76,7 +94,15 @@ class ReservarLibroActivity : AppCompatActivity() {
         presentador.crearReserva(tipoUsuario, identificador, idLibro, fechaRecoger)
     }
     fun reservaExitosa(datos: Any) {
+        val reservaData = datos as? dataReserva
         Toast.makeText(this, "Reserva realizada con éxito", Toast.LENGTH_SHORT).show()
+        
+        val intent = android.content.Intent(this, Reserva_Realizada::class.java)
+        intent.putExtra(Reserva_Realizada.EXTRA_ID_LECTOR, identificador)
+        if (reservaData != null) {
+            intent.putExtra(Reserva_Realizada.EXTRA_ID_RESERVA, reservaData.idReserva)
+        }
+        startActivity(intent)
         finish()
     }
 

@@ -31,7 +31,8 @@ class CambiarContraseniaActivity : AppCompatActivity() {
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.lytRaizCambioContrasenia)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            findViewById<View>(R.id.lytEncabezadoCambioContrasenia).setPadding(0, systemBars.top, 0, 0)
+            v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom)
             insets
         }
 
