@@ -236,7 +236,4 @@
 
         </LinearLayout>
 
-        <!-- Barra de navegación inferior -->
-        <include layout="@layout/cbta_barra_navegacion" />
-
     </LinearLayout>
