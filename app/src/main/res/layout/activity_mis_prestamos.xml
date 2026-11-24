@@ -50,8 +50,7 @@
         android:orientation="vertical"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="8dp">
+        android:paddingTop="16dp">
 
         <!-- TOTAL DE PRESTAMOS ACTIVOS -->
         <TextView
@@ -98,12 +97,5 @@
             android:visibility="gone" />
 
     </LinearLayout>
-
-    <!-- BARRA INFERIOR -->
-    <include
-        android:id="@+id/barraNavegacion"
-        layout="@layout/cbta_barra_navegacion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 </LinearLayout>

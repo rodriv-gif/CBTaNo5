@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CBTaNo5</string>
+    <string name="cbta_reserva_realizada_fecha_recogida">Fecha de recogida:</string>
 </resources>

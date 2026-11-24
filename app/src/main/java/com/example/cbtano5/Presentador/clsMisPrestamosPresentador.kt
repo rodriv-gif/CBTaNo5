@@ -1,6 +1,8 @@
 package com.example.cbtano5.Presentador
 
+import android.util.Log
 import com.example.cbtano5.Modelo.clsModeloMisPrestamos
+import com.example.cbtano5.Modelo.dataLibro
 import com.example.cbtano5.Vista.MisPrestamosActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +33,17 @@ class clsMisPrestamosPresentador(private val vista: MisPrestamosActivity) {
                     modelo.obtenerMisPrestamosTrabajador(numeroControl)
                 }
                 if (respuesta.success && respuesta.data != null) {
-                    vista.mostrarPrestamos(respuesta)
+
+                    // Catálogo para completar portada y autor.
+                    // Si falla, los préstamos se muestran igual (mapa vacío).
+                    val librosPorId: Map<Int, dataLibro> = try {
+                        modelo.obtenerCatalogoLibros().data.orEmpty().associateBy { it.idLibro }
+                    } catch (e: Exception) {
+                        Log.d("DEBUG_PRESTAMOS", "No se pudo cargar el catálogo: ${e.localizedMessage}") // TEMPORAL DIAGNÓSTICO
+                        emptyMap()
+                    }
+
+                    vista.mostrarPrestamos(respuesta, librosPorId)
                 } else {
                     vista.mostrarError(respuesta.message)
                 }

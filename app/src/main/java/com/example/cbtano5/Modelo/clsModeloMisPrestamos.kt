@@ -12,4 +12,10 @@ class clsModeloMisPrestamos {
 
         return RetrofitCliente.apiService.obtenerMisPrestamosTrabajador(numeroControl)
     }
+
+    // Catálogo completo (sin búsqueda ni categoría) para completar portada y autor de los préstamos
+    suspend fun obtenerCatalogoLibros(): LibroResponse {
+
+        return RetrofitCliente.apiService.obtenerLibros("", 0)
+    }
 }

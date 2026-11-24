@@ -22,9 +22,9 @@ class Reserva_Realizada : AppCompatActivity() {
         const val EXTRA_ID_LECTOR = "id"
         const val EXTRA_ID_RESERVA = "id_reserva"
 
-        // Opción 2: mandar directamente el texto ya listo.
+        // Opción 2: mandar directamente el título y la fecha de recogida.
         //   intent.putExtra(Reserva_Realizada.EXTRA_TITULO, "Cien años de soledad")
-        //   intent.putExtra(Reserva_Realizada.EXTRA_VIGENCIA, "3 días (hasta el 19 de nov. de 2026)")
+        //   intent.putExtra(Reserva_Realizada.EXTRA_VIGENCIA, "19/11/2026")
         const val EXTRA_TITULO = "titulo"
         const val EXTRA_VIGENCIA = "vigencia_texto"
     }
@@ -69,24 +69,40 @@ class Reserva_Realizada : AppCompatActivity() {
             val titulo = intent.getStringExtra(EXTRA_TITULO)
                 ?: "Cien años de soledad"
 
-            val vigencia = intent.getStringExtra(EXTRA_VIGENCIA)
-                ?: "3 días (hasta el 05 de nov. de 2025)"
+            val fecha = intent.getStringExtra(EXTRA_VIGENCIA)
+                ?: "05/11/2025"
 
-            mostrarDatos(titulo, vigencia)
+            mostrarDatos(titulo, formatearFecha(fecha))
         }
     }
 
     /** Lo llama el presentador cuando llegan los datos de la API. */
     fun mostrarReserva(reserva: ReservaRealizada) {
-        mostrarDatos(reserva.titulo, reserva.vigenciaTexto)
+        mostrarDatos(reserva.titulo, formatearFecha(reserva.vigencia))
     }
 
-    private fun mostrarDatos(titulo: String, vigencia: String) {
+    private fun mostrarDatos(titulo: String, fechaRecogida: String) {
 
         textoMensaje.text =
             getString(R.string.cbta_reserva_mensaje, titulo)
 
-        textoVigencia.text = vigencia
+        textoVigencia.text = fechaRecogida
+    }
+
+    /**
+     * Deja la fecha en dd/MM/yyyy.
+     * Si llega como yyyy-MM-dd (o yyyy-MM-dd HH:mm:ss) se reacomoda con split("-"),
+     * sin Date ni SimpleDateFormat para no desfasar un día por la zona horaria.
+     * Si ya viene como dd/MM/yyyy se deja igual.
+     */
+    private fun formatearFecha(fecha: String): String {
+        val fechaSimple = fecha.trim().take(10)
+        val partes = fechaSimple.split("-")
+
+        if (partes.size == 3 && partes[0].length == 4) {
+            return partes[2] + "/" + partes[1] + "/" + partes[0]
+        }
+        return fechaSimple
     }
 
     /** Lo llama el presentador cuando algo falla: avisa y cierra la pantalla. */
