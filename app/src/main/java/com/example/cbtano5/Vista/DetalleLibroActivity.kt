@@ -2,6 +2,7 @@ package com.example.cbtano5.Vista
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -15,11 +16,14 @@ import com.example.cbtano5.Presentador.clsDetalleLibroPresentador
 
 class DetalleLibroActivity : AppCompatActivity() {
 
+    // Dirección de las portadas
     private val baseUrl = "https://biblioteccbtan5.4cuthh.com/bibliocbta5/"
     private val rutaPortadas = "upload/libros/principales/"
 
+    // Presentador
     private lateinit var presenter: clsDetalleLibroPresentador
 
+    // Componentes del XML
     private lateinit var imgPortadaLibro: ImageView
     private lateinit var txtTituloLibro: TextView
     private lateinit var txtAutorLibro: TextView
@@ -29,9 +33,11 @@ class DetalleLibroActivity : AppCompatActivity() {
     private lateinit var txtUbicacion: TextView
     private lateinit var txtSinopsis: TextView
 
+    // Botones
     private lateinit var btnRegresar: TextView
     private lateinit var btnReservarLibro: Button
 
+    // Barra de navegación inferior
     private lateinit var navInicio: LinearLayout
     private lateinit var navCatalogo: LinearLayout
     private lateinit var navReservas: LinearLayout
@@ -42,12 +48,13 @@ class DetalleLibroActivity : AppCompatActivity() {
     private var idUsuario: Int = 0
     private var nombreLector: String = ""
     private var tipoUsuario: String = ""
+    private var portadaLibro: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalle_libro)
 
-        // Inicializar vistas
+        // Relacionar los componentes con el XML
         imgPortadaLibro = findViewById(R.id.imgPortadaLibro)
         txtTituloLibro = findViewById(R.id.txtTituloLibro)
         txtAutorLibro = findViewById(R.id.txtAutorLibro)
@@ -56,148 +63,326 @@ class DetalleLibroActivity : AppCompatActivity() {
         txtIsbn = findViewById(R.id.txtIsbn)
         txtUbicacion = findViewById(R.id.txtUbicacion)
         txtSinopsis = findViewById(R.id.txtSinopsis)
+
         btnRegresar = findViewById(R.id.btnRegresar)
         btnReservarLibro = findViewById(R.id.btnReservarLibro)
 
-        // Inicializar presentador
-        presenter = clsDetalleLibroPresentador(this)
-
-        // Obtener datos enviados desde el catálogo
-        idLibro = intent.getIntExtra("ID_LIBRO", 0)
-        idUsuario = intent.getIntExtra("ID_USUARIO", 0)
-        nombreLector = intent.getStringExtra("NOMBRE_LECTOR") ?: ""
-        tipoUsuario = intent.getStringExtra("TIPO_USUARIO") ?: ""
-
+        // Relacionar la barra de navegación
         navInicio = findViewById(R.id.nav_inicio)
         navCatalogo = findViewById(R.id.nav_catalogo)
         navReservas = findViewById(R.id.nav_reservas)
         navCuenta = findViewById(R.id.nav_cuenta)
 
-        navInicio.setOnClickListener {
-            val intentNav = Intent(this, InicioActivity::class.java)
-            intentNav.putExtra("id", idUsuario)
-            intentNav.putExtra("tipo", tipoUsuario)
-            startActivity(intentNav)
-        }
+        // Inicializar el presentador
+        presenter = clsDetalleLibroPresentador(this)
 
-        navCatalogo.setOnClickListener {
-            val intentNav = Intent(this, CatalogoLibrosActivity::class.java)
-            intentNav.putExtra("ID_USUARIO", idUsuario)
-            intentNav.putExtra("NOMBRE_LECTOR", nombreLector)
-            intentNav.putExtra("TIPO_USUARIO", tipoUsuario)
-            startActivity(intentNav)
-        }
+        // Recibir información enviada desde Catálogo
+        idLibro = intent.getIntExtra("ID_LIBRO", 0)
+        idUsuario = intent.getIntExtra("ID_USUARIO", 0)
+        nombreLector = intent.getStringExtra("NOMBRE_LECTOR") ?: ""
+        tipoUsuario = intent.getStringExtra("TIPO_USUARIO") ?: ""
 
-        navReservas.setOnClickListener {
-            val intentNav = Intent(this, MisReservasActivity::class.java)
-            intentNav.putExtra("id", idUsuario)
-            intentNav.putExtra("tipo", tipoUsuario)
-            intentNav.putExtra("nombre", nombreLector)
-            startActivity(intentNav)
-        }
+        // Recibir la portada directamente desde Catálogo
+        portadaLibro = intent.getStringExtra("PORTADA_LIBRO")
+            ?.trim() ?: ""
 
-        navCuenta.setOnClickListener {
-            val intentNav = Intent(this, MiCuentaActivity::class.java)
-            if (tipoUsuario.lowercase() == "alumno" || tipoUsuario.isEmpty()) {
-                intentNav.putExtra("MATRICULA", idUsuario.toString())
-            } else {
-                intentNav.putExtra("NUMERO_CONTROL", idUsuario.toString())
-            }
-            intentNav.putExtra("id", idUsuario)
-            startActivity(intentNav)
-        }
+        // Mostrar la portada sin esperar la respuesta del API
+        cargarPortada(portadaLibro)
+
+        // Información inicial
+        txtTituloLibro.text = "Cargando libro..."
+        txtAutorLibro.text = "Cargando autor..."
+        txtSinopsis.text = "Sinopsis no disponible"
+
+        // Deshabilitar Reservar mientras se carga el libro
+        btnReservarLibro.isEnabled = false
 
         // Botón regresar
         btnRegresar.setOnClickListener {
             finish()
         }
 
-        // Habilitar y conectar el botón Reservar
-        btnReservarLibro.isEnabled = true
-        btnReservarLibro.setOnClickListener {
-            val intentReservar = Intent(this, ReservarLibroActivity::class.java)
-            intentReservar.putExtra("ID_LIBRO", idLibro)
-            intentReservar.putExtra("TITULO_LIBRO", txtTituloLibro.text.toString())
-            intentReservar.putExtra("AUTOR_LIBRO", txtAutorLibro.text.toString())
-            intentReservar.putExtra("CATEGORIA_LIBRO", txtCategoriaLibro.text.toString())
-            intentReservar.putExtra("ID_USUARIO", idUsuario)
-            intentReservar.putExtra("NOMBRE_LECTOR", nombreLector)
-            intentReservar.putExtra("TIPO_USUARIO", tipoUsuario)
-            startActivity(intentReservar)
+        // Abrir Inicio
+        navInicio.setOnClickListener {
+            abrirInicio()
         }
 
-        // Consultar información del libro
+        // Abrir Catálogo
+        navCatalogo.setOnClickListener {
+            abrirCatalogo()
+        }
+
+        // Abrir Mis reservas
+        navReservas.setOnClickListener {
+            abrirMisReservas()
+        }
+
+        // Abrir Mi cuenta
+        navCuenta.setOnClickListener {
+            abrirMiCuenta()
+        }
+
+        // Consultar información del libro mediante MVP
         presenter.cargarDetalle(idLibro)
     }
 
-    fun mostrarDetalleLibro(detalle: DetalleLibroResponse) {
-        val datos = detalle.data ?: return
-        val libro = datos.libro
+    // Cargar la portada del libro
+    private fun cargarPortada(portada: String) {
 
-        // Título
-        txtTituloLibro.text = libro.titulo
-        // Autores
-        val autores = datos.autores.joinToString(", ") {
-            it.nombre_completo
-        }
-        txtAutorLibro.text = if (autores.isEmpty()) {
-            "Autor no registrado"
-        } else {
-            autores
-        }
-        // Categoría
-        txtCategoriaLibro.text = libro.categoria ?: "Sin categoría"
-        // Disponibilidad
-        val disponibles = datos.disponibles_estimados
+        val nombrePortada = portada.trim()
 
-        txtDisponibilidad.text = "Disponible: $disponibles ejemplares"
-        // ISBN
-        txtIsbn.text = "ISBN: ${libro.isbn ?: "No registrado"}"
-        // Ubicación
-        val ubicaciones = datos.ejemplares.mapNotNull { it.localizacion }.filter { it.isNotBlank() }.distinct()
+        // Comprobar que exista una portada
+        if (nombrePortada.isBlank()) {
 
-        txtUbicacion.text = if (ubicaciones.isEmpty()) {
-            "Ubicación: No registrada"
-        } else {
-            "Ubicación: " + ubicaciones.joinToString(", ")
+            imgPortadaLibro.setImageResource(
+                R.drawable.cbta_ic_portada
+            )
+
+            Log.d("DetalleLibro", "No se recibió la portada")
+
+            return
         }
 
-        // Sinopsis y portada:
-        txtSinopsis.text = "Sinopsis no disponible"
-        
-        val portada = (intent.getStringExtra("PORTADA_LIBRO") ?: libro.portada)?.trim() ?: ""
+        // Construir la dirección de la imagen
         val urlImagen = when {
-            portada.startsWith("http") -> portada
-            portada.startsWith("upload/") -> baseUrl + portada
-            else -> baseUrl + rutaPortadas + portada
+
+            nombrePortada.startsWith("http://") ||
+                    nombrePortada.startsWith("https://") -> {
+                nombrePortada
+            }
+
+            nombrePortada.startsWith("upload/") -> {
+                baseUrl + nombrePortada
+            }
+
+            nombrePortada.startsWith("/upload/") -> {
+                baseUrl + nombrePortada.removePrefix("/")
+            }
+
+            else -> {
+                baseUrl + rutaPortadas + nombrePortada
+            }
         }
 
+        // Comprobar la dirección en Logcat
+        Log.d("DetalleLibro", "URL portada: $urlImagen")
+
+        // Mostrar la portada con Glide
         Glide.with(this)
             .load(urlImagen)
             .placeholder(R.drawable.cbta_ic_portada)
             .error(R.drawable.cbta_ic_portada)
             .into(imgPortadaLibro)
+    }
 
+    // Mostrar información obtenida desde la API
+    fun mostrarDetalleLibro(detalle: DetalleLibroResponse) {
+
+        val datos = detalle.data ?: return
+        val libro = datos.libro
+
+        // Título del libro
+        txtTituloLibro.text = libro.titulo
+
+        // Obtener los autores del libro
+        val autores = datos.autores
+            .map { it.nombre_completo.trim() }
+            .filter { it.isNotBlank() }
+            .distinct()
+            .joinToString(", ")
+
+        // Mostrar los autores
+        val autoresText = if (autores.isBlank()) {
+            "Autor no registrado"
+        } else {
+            autores
+        }
+
+        txtAutorLibro.text = autoresText
+
+        // Comprobar autores recibidos en Logcat
+        Log.d("DetalleLibro", "Autores: $autoresText")
+        Log.d("DetalleLibro", "Total autores: ${datos.autores.size}")
+
+        // Categoría
+        txtCategoriaLibro.text = libro.categoria
+            ?.takeIf { it.isNotBlank() }
+            ?: "Sin categoría"
+
+        // Disponibilidad
+        val disponibles = datos.disponibles_estimados
+
+        txtDisponibilidad.text = "Disponible: $disponibles ejemplares"
+
+        // ISBN
+        txtIsbn.text = "ISBN: ${libro.isbn ?: "No registrado"}"
+
+        // Obtener las ubicaciones de los ejemplares
+        val ubicaciones = datos.ejemplares
+            .mapNotNull { it.localizacion }
+            .filter { it.isNotBlank() }
+            .distinct()
+
+        // Mostrar las ubicaciones
+        txtUbicacion.text = if (ubicaciones.isEmpty()) {
+
+            "Ubicación: No registrada"
+
+        } else {
+
+            "Ubicación: " + ubicaciones.joinToString(", ")
+        }
+
+        // Sinopsis
+        txtSinopsis.text = "Sinopsis no disponible"
+
+        // Si Catálogo no envió portada, intentar obtenerla del API
+        if (portadaLibro.isBlank()) {
+
+            portadaLibro = libro.portada?.trim() ?: ""
+
+            cargarPortada(portadaLibro)
+        }
+
+        // Habilitar Reservar después de cargar el libro
         btnReservarLibro.isEnabled = true
-        btnReservarLibro.setOnClickListener {
-            val intentReserva = Intent(this, ReservarLibroActivity::class.java)
-            
-            intentReserva.putExtra("ID_LIBRO", libro.idLibro)
-            intentReserva.putExtra("TITULO_LIBRO", libro.titulo)
-            
-            val autoresText = if (autores.isEmpty()) "Autor no registrado" else autores
-            intentReserva.putExtra("AUTOR_LIBRO", autoresText)
-            intentReserva.putExtra("CATEGORIA_LIBRO", libro.categoria ?: "Sin categoría")
 
-            intentReserva.putExtra("ID_USUARIO", idUsuario)
-            intentReserva.putExtra("NOMBRE_LECTOR", nombreLector)
-            intentReserva.putExtra("TIPO_USUARIO", tipoUsuario)
-            
-            startActivity(intentReserva)
+        // Abrir pantalla Reservar libro
+        btnReservarLibro.setOnClickListener {
+
+            if (idUsuario > 0) {
+
+                val intentReserva = Intent(this, ReservarLibroActivity::class.java)
+
+                // Información del libro
+                intentReserva.putExtra("ID_LIBRO", libro.idLibro)
+                intentReserva.putExtra("TITULO_LIBRO", libro.titulo)
+                intentReserva.putExtra("AUTOR_LIBRO", autoresText)
+
+                intentReserva.putExtra("CATEGORIA_LIBRO", libro.categoria ?: "Sin categoría")
+
+                // Información del usuario
+                intentReserva.putExtra("ID_USUARIO", idUsuario)
+                intentReserva.putExtra("NOMBRE_LECTOR", nombreLector)
+                intentReserva.putExtra("TIPO_USUARIO", tipoUsuario)
+
+                startActivity(intentReserva)
+
+            } else {
+
+                mostrarErrorIdentificador()
+            }
         }
     }
 
+    // Abrir pantalla Inicio
+    private fun abrirInicio() {
+
+        if (idUsuario > 0) {
+
+            val intentNav = Intent(this, InicioActivity::class.java)
+
+            intentNav.putExtra("id", idUsuario)
+            intentNav.putExtra("tipo", tipoUsuario)
+            intentNav.putExtra("nombre", nombreLector)
+
+            startActivity(intentNav)
+
+        } else {
+
+            mostrarErrorIdentificador()
+        }
+    }
+
+    // Abrir pantalla Catálogo
+    private fun abrirCatalogo() {
+
+        if (idUsuario > 0) {
+
+            val intentNav = Intent(this, CatalogoLibrosActivity::class.java)
+
+            intentNav.putExtra("ID_USUARIO", idUsuario)
+            intentNav.putExtra("NOMBRE_LECTOR", nombreLector)
+            intentNav.putExtra("TIPO_USUARIO", tipoUsuario)
+
+            startActivity(intentNav)
+
+        } else {
+
+            mostrarErrorIdentificador()
+        }
+    }
+
+    // Abrir pantalla Mis reservas
+    private fun abrirMisReservas() {
+
+        if (idUsuario > 0) {
+
+            val intentNav = Intent(this, MisReservasActivity::class.java)
+
+            intentNav.putExtra("id", idUsuario)
+            intentNav.putExtra("tipo", tipoUsuario)
+            intentNav.putExtra("nombre", nombreLector)
+
+            startActivity(intentNav)
+
+        } else {
+
+            mostrarErrorIdentificador()
+        }
+    }
+
+    // Abrir pantalla Mi cuenta
+    private fun abrirMiCuenta() {
+
+        if (idUsuario > 0) {
+
+            val intentNav = Intent(this, MiCuentaActivity::class.java)
+
+            // Enviar el identificador según el tipo de usuario
+            when (tipoUsuario.trim().lowercase()) {
+
+                "alumno" -> {
+                    intentNav.putExtra("MATRICULA", idUsuario.toString())
+                }
+
+                "trabajador" -> {
+                    intentNav.putExtra("NUMERO_CONTROL", idUsuario.toString())
+                }
+
+                else -> {
+                    Toast.makeText(this, "Tipo de usuario no reconocido", Toast.LENGTH_SHORT).show()
+
+                    return
+                }
+            }
+
+            // Enviar los datos originales del usuario
+            intentNav.putExtra("id", idUsuario)
+            intentNav.putExtra("tipo", tipoUsuario)
+            intentNav.putExtra("nombre", nombreLector)
+
+            startActivity(intentNav)
+
+        } else {
+
+            mostrarErrorIdentificador()
+        }
+    }
+
+    // Mostrar error de identificador
+    private fun mostrarErrorIdentificador() {
+
+        Toast.makeText(this, "No se encontró el identificador del usuario", Toast.LENGTH_SHORT).show()
+    }
+
+    // Mostrar errores del presentador
     fun mostrarError(mensaje: String) {
+
+        btnReservarLibro.isEnabled = false
+        txtTituloLibro.text = "No se pudo cargar el libro"
+        txtAutorLibro.text = "Autor no disponible"
+
         Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
     }
 }
