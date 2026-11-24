@@ -15,6 +15,9 @@ data class dataPrestamo(
     @SerialName("titulo_libro")
     val tituloLibro: String,
 
+    @SerialName("autor")
+    val autor: String? = null,
+
     @SerialName("id_estado_prestamo")
     val idEstadoPrestamo: Int,
 

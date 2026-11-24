@@ -95,7 +95,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/cbta_reserva_vigencia_titulo"
+                            android:text="@string/cbta_reserva_realizada_fecha_recogida"
                             android:textColor="@color/cbta_texto"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -107,7 +107,7 @@
                             android:layout_marginTop="2dp"
                             android:textColor="@color/cbta_texto"
                             android:textSize="14sp"
-                            tools:text="3 días (hasta el 05 de nov. de 2025)" />
+                            tools:text="05/11/2025" />
                     </LinearLayout>
                 </LinearLayout>
 
