@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         //inicializamos el boton con listener
         btnIngresar.setOnClickListener { ejecutarIniciarSesion() }
         ivVerContrasenia.setOnClickListener { cambiarVisibilidadContrasenia() }
+        txtOlvidaste.setOnClickListener { abrirRecuperarContrasenia() }
     }
     fun ejecutarIniciarSesion() {
         presentador.iniciarSesion(
@@ -83,5 +84,9 @@ class MainActivity : AppCompatActivity() {
     //lo llama el presentador cuando algo falla, muestra el mensaje en pantalla
     fun mostrarError(mensaje: String){
         Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
+    }
+    //abre a la pantalla de recuperar contraseña
+    fun abrirRecuperarContrasenia() {
+        startActivity(Intent(this, RecuperarContraseniaActivity::class.java))
     }
 }

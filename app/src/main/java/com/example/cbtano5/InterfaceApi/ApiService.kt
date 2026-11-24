@@ -21,8 +21,11 @@ import com.example.cbtano5.Modelo.DetalleLibroResponse
 import  com.example.cbtano5.Modelo.MiCuentaResponse
 import com.example.cbtano5.Modelo.Aviso
 import com.example.cbtano5.Modelo.AdeudosRespuesta
+import com.example.cbtano5.Modelo.PreguntaResponse
 import com.example.cbtano5.Modelo.ReservaRealizada
 import com.example.cbtano5.Modelo.PrestamoConfirmado
+import com.example.cbtano5.Modelo.RecuperarRequest
+import com.example.cbtano5.Modelo.RecuperarResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 
@@ -30,6 +33,13 @@ interface ApiService {
     // Pantalla Iniciar sesión
     @POST("iniciar_sesion.php")
     suspend fun iniciarSesion(@Body request: LoginRequest): LoginResponse
+    // Pantalla Recuperar contraseña: pide la pregunta de seguridad
+    @GET("obtener_pregunta.php")
+    suspend fun obtenerPregunta(@Query("numero_control") numeroControl: String): PreguntaResponse
+
+    // Pantalla Pregunta de seguridad: cambia la contraseña si la respuesta es correcta
+    @POST("recuperar_contrasenia.php")
+    suspend fun recuperarContrasenia(@Body request: RecuperarRequest): RecuperarResponse
 
     // Pantalla Inicio
     @GET("obtener_inicio.php")
@@ -58,7 +68,6 @@ interface ApiService {
     //Pantalla de cambiar contraseña
     @POST("cambiar_contrasenia.php")
     suspend fun cambiarContrasenia(@Body peticion: dataContrasenia): ContraseniaResponse
-///////
 
     // Pantalla Detalle del libro
     @GET("detalle_libro.php")
