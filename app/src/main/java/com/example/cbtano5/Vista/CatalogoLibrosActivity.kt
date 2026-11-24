@@ -146,7 +146,11 @@ class CatalogoLibrosActivity : AppCompatActivity() {
     }
 
     fun mostrarCategorias(categorias: List<dataCategoria>) {
-        adaptadorCategorias.actualizarLista(categorias)
+        val listaConTodos = mutableListOf<dataCategoria>()
+        listaConTodos.add(dataCategoria(idCategoria = 0, nombre = "Todos"))
+        listaConTodos.addAll(categorias)
+        
+        adaptadorCategorias.actualizarLista(listaConTodos)
     }
 
     fun mostrarLibros(libros: List<dataLibro>) {
