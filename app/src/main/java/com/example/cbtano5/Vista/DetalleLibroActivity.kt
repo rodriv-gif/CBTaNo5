@@ -261,6 +261,8 @@ class DetalleLibroActivity : AppCompatActivity() {
 
                 intentReserva.putExtra("CATEGORIA_LIBRO", libro.categoria ?: "Sin categoría")
 
+                intentReserva.putExtra("CATEGORIA_LIBRO", libro.categoria ?: "Sin categoría")
+
                 // Información del usuario
                 intentReserva.putExtra("ID_USUARIO", idUsuario)
                 intentReserva.putExtra("NOMBRE_LECTOR", nombreLector)
