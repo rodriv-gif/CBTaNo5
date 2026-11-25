@@ -13,6 +13,8 @@ import com.bumptech.glide.Glide
 import com.example.cbtano5.R
 import com.example.cbtano5.Modelo.DetalleLibroResponse
 import com.example.cbtano5.Presentador.clsDetalleLibroPresentador
+import androidx.core.view.WindowCompat
+import android.graphics.Color
 
 class DetalleLibroActivity : AppCompatActivity() {
 
@@ -51,6 +53,7 @@ class DetalleLibroActivity : AppCompatActivity() {
     private var portadaLibro: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalle_libro)
 
@@ -92,33 +95,38 @@ class DetalleLibroActivity : AppCompatActivity() {
         // Información inicial
         txtTituloLibro.text = "Cargando libro..."
         txtAutorLibro.text = "Cargando autor..."
-        txtSinopsis.text = "Sinopsis no disponible"
+        txtSinopsis.text = "Cargando sinopsis..."
 
         // Deshabilitar Reservar mientras se carga el libro
         btnReservarLibro.isEnabled = false
 
         // Botón regresar
         btnRegresar.setOnClickListener {
+
             finish()
         }
 
         // Abrir Inicio
         navInicio.setOnClickListener {
+
             abrirInicio()
         }
 
         // Abrir Catálogo
         navCatalogo.setOnClickListener {
+
             abrirCatalogo()
         }
 
         // Abrir Mis reservas
         navReservas.setOnClickListener {
+
             abrirMisReservas()
         }
 
         // Abrir Mi cuenta
         navCuenta.setOnClickListener {
+
             abrirMiCuenta()
         }
 
@@ -148,18 +156,22 @@ class DetalleLibroActivity : AppCompatActivity() {
 
             nombrePortada.startsWith("http://") ||
                     nombrePortada.startsWith("https://") -> {
+
                 nombrePortada
             }
 
             nombrePortada.startsWith("upload/") -> {
+
                 baseUrl + nombrePortada
             }
 
             nombrePortada.startsWith("/upload/") -> {
+
                 baseUrl + nombrePortada.removePrefix("/")
             }
 
             else -> {
+
                 baseUrl + rutaPortadas + nombrePortada
             }
         }
@@ -193,8 +205,11 @@ class DetalleLibroActivity : AppCompatActivity() {
 
         // Mostrar los autores
         val autoresText = if (autores.isBlank()) {
+
             "Autor no registrado"
+
         } else {
+
             autores
         }
 
@@ -233,8 +248,10 @@ class DetalleLibroActivity : AppCompatActivity() {
             "Ubicación: " + ubicaciones.joinToString(", ")
         }
 
-        // Sinopsis
-        txtSinopsis.text = "Sinopsis no disponible"
+        // Mostrar sinopsis obtenida desde la base de datos
+        txtSinopsis.text = libro.sinopsis
+            ?.takeIf { it.isNotBlank() }
+            ?: "Sinopsis no disponible"
 
         // Si Catálogo no envió portada, intentar obtenerla del API
         if (portadaLibro.isBlank()) {
@@ -252,16 +269,26 @@ class DetalleLibroActivity : AppCompatActivity() {
 
             if (idUsuario > 0) {
 
-                val intentReserva = Intent(this, ReservarLibroActivity::class.java)
+                val intentReserva = Intent(
+                    this,
+                    ReservarLibroActivity::class.java
+                )
 
                 // Información del libro
                 intentReserva.putExtra("ID_LIBRO", libro.idLibro)
                 intentReserva.putExtra("TITULO_LIBRO", libro.titulo)
                 intentReserva.putExtra("AUTOR_LIBRO", autoresText)
 
-                intentReserva.putExtra("CATEGORIA_LIBRO", libro.categoria ?: "Sin categoría")
+                intentReserva.putExtra(
+                    "CATEGORIA_LIBRO",
+                    libro.categoria ?: "Sin categoría"
+                )
 
-                intentReserva.putExtra("CATEGORIA_LIBRO", libro.categoria ?: "Sin categoría")
+                // Enviar la portada del libro
+                intentReserva.putExtra(
+                    "PORTADA_LIBRO",
+                    portadaLibro.removePrefix("/")
+                )
 
                 // Información del usuario
                 intentReserva.putExtra("ID_USUARIO", idUsuario)
@@ -282,7 +309,10 @@ class DetalleLibroActivity : AppCompatActivity() {
 
         if (idUsuario > 0) {
 
-            val intentNav = Intent(this, InicioActivity::class.java)
+            val intentNav = Intent(
+                this,
+                InicioActivity::class.java
+            )
 
             intentNav.putExtra("id", idUsuario)
             intentNav.putExtra("tipo", tipoUsuario)
@@ -301,7 +331,10 @@ class DetalleLibroActivity : AppCompatActivity() {
 
         if (idUsuario > 0) {
 
-            val intentNav = Intent(this, CatalogoLibrosActivity::class.java)
+            val intentNav = Intent(
+                this,
+                CatalogoLibrosActivity::class.java
+            )
 
             intentNav.putExtra("ID_USUARIO", idUsuario)
             intentNav.putExtra("NOMBRE_LECTOR", nombreLector)
@@ -320,7 +353,10 @@ class DetalleLibroActivity : AppCompatActivity() {
 
         if (idUsuario > 0) {
 
-            val intentNav = Intent(this, MisReservasActivity::class.java)
+            val intentNav = Intent(
+                this,
+                MisReservasActivity::class.java
+            )
 
             intentNav.putExtra("id", idUsuario)
             intentNav.putExtra("tipo", tipoUsuario)
@@ -339,21 +375,37 @@ class DetalleLibroActivity : AppCompatActivity() {
 
         if (idUsuario > 0) {
 
-            val intentNav = Intent(this, MiCuentaActivity::class.java)
+            val intentNav = Intent(
+                this,
+                MiCuentaActivity::class.java
+            )
 
             // Enviar el identificador según el tipo de usuario
             when (tipoUsuario.trim().lowercase()) {
 
                 "alumno" -> {
-                    intentNav.putExtra("MATRICULA", idUsuario.toString())
+
+                    intentNav.putExtra(
+                        "MATRICULA",
+                        idUsuario.toString()
+                    )
                 }
 
                 "trabajador" -> {
-                    intentNav.putExtra("NUMERO_CONTROL", idUsuario.toString())
+
+                    intentNav.putExtra(
+                        "NUMERO_CONTROL",
+                        idUsuario.toString()
+                    )
                 }
 
                 else -> {
-                    Toast.makeText(this, "Tipo de usuario no reconocido", Toast.LENGTH_SHORT).show()
+
+                    Toast.makeText(
+                        this,
+                        "Tipo de usuario no reconocido",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
                     return
                 }
@@ -375,7 +427,11 @@ class DetalleLibroActivity : AppCompatActivity() {
     // Mostrar error de identificador
     private fun mostrarErrorIdentificador() {
 
-        Toast.makeText(this, "No se encontró el identificador del usuario", Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            this,
+            "No se encontró el identificador del usuario",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     // Mostrar errores del presentador
@@ -385,6 +441,10 @@ class DetalleLibroActivity : AppCompatActivity() {
         txtTituloLibro.text = "No se pudo cargar el libro"
         txtAutorLibro.text = "Autor no disponible"
 
-        Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
+        Toast.makeText(
+            this,
+            mensaje,
+            Toast.LENGTH_LONG
+        ).show()
     }
 }

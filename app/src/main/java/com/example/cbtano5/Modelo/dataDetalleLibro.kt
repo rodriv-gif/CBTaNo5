@@ -6,6 +6,7 @@ import kotlinx.serialization.SerialName
 
 @Serializable
 data class dataDetalleLibro(
+
     @SerialName("id_libro")
     val idLibro: Int,
 
@@ -18,9 +19,11 @@ data class dataDetalleLibro(
     @SerialName("ISBN")
     val isbn: String? = null,
 
-    val categoria: String? = null
-)
+    val categoria: String? = null,
 
+    @SerialName("sinopsis")
+    val sinopsis: String? = null
+)
 @Serializable
 data class dataAutorLibro(
     val id_autor: Int,
