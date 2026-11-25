@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F4F7F8"
+    android:background="#004D32"
     android:fitsSystemWindows="true">
 
     <!-- ENCABEZADO -->
@@ -47,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="#F4F7F8"
         android:fillViewport="true"
         android:scrollbars="vertical"
         android:overScrollMode="ifContentScrolls"
@@ -239,6 +240,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="#F4F7F8"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:paddingTop="8dp"

@@ -12,6 +12,8 @@ import com.example.cbtano5.Adaptador.PrestamosAdaptador
 import com.example.cbtano5.Modelo.MisPrestamosResponse
 import com.example.cbtano5.Modelo.dataLibro
 import com.example.cbtano5.Presentador.clsMisPrestamosPresentador
+import android.graphics.Color
+import androidx.core.view.WindowCompat
 
 class MisPrestamosActivity : AppCompatActivity() {
 
@@ -28,6 +30,7 @@ class MisPrestamosActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mis_prestamos)
+
 
         // Relaciona componentes del X
         txtPrestamosActivos = findViewById(R.id.txtPrestamosActivos)

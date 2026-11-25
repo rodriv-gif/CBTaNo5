@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.cbtano5.R
 import com.example.cbtano5.Modelo.MiCuentaResponse
 import com.example.cbtano5.Presentador.clsMiCuentaPresentador
+import android.graphics.Color
+import androidx.core.view.WindowCompat
 
 class MiCuentaActivity : AppCompatActivity() {
 
@@ -48,6 +50,7 @@ class MiCuentaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mi_cuenta)
+
 
         // Relacionar los componentes con el XML
         txtNombrePerfil = findViewById(R.id.txtNombrePerfil)
@@ -153,17 +156,19 @@ class MiCuentaActivity : AppCompatActivity() {
         // 3. Abrir Cambiar contraseña
         opCambiarContrasena.setOnClickListener {
 
-            val idFinal = idLector.takeIf { it != 0 }
-                ?: idUsuarioOriginal
+            if (idUsuarioOriginal > 0 && tipoUsuarioStr.isNotBlank()) {
 
-            val intentCambio = Intent(this, CambiarContraseniaActivity::class.java)
+                val intentCambio = Intent(this, CambiarContraseniaActivity::class.java)
 
-            intentCambio.putExtra("ID_USUARIO", idFinal)
-            intentCambio.putExtra("TIPO_USUARIO", tipoUsuarioStr)
+                intentCambio.putExtra("ID_USUARIO", idUsuarioOriginal)
+                intentCambio.putExtra("TIPO_USUARIO", tipoUsuarioStr)
 
-            startActivity(intentCambio)
+                startActivity(intentCambio)
+
+            } else {
+                mostrarErrorIdentificador()
+            }
         }
-
         // 4. Cerrar sesión
         btnCerrarSesion.setOnClickListener {
 
