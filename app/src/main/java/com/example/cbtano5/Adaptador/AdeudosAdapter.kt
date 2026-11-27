@@ -6,7 +6,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.cbtano5.Modelo.Adeudo
+import com.example.cbtano5.Modelo.RetrofitCliente
 import com.example.cbtano5.R
 
 /** Pinta la lista de adeudos (libros vencidos y libros a reponer). */
@@ -45,7 +47,8 @@ class AdeudosAdapter : RecyclerView.Adapter<AdeudosAdapter.AdeudoViewHolder>() {
         val adeudo = adeudos[position]
         val contexto = holder.itemView.context
 
-        holder.concepto.text = adeudo.concepto
+        // Arriba va el titulo del libro; abajo dice si es retraso o reposicion
+        holder.concepto.text = adeudo.titulo
 
         holder.dias.text = contexto.getString(
             R.string.cbta_adeudo_dias,
@@ -57,8 +60,13 @@ class AdeudosAdapter : RecyclerView.Adapter<AdeudosAdapter.AdeudoViewHolder>() {
             adeudo.adeudo
         )
 
-        // TODO (cuando conectes la API): cargar aquí la portada con adeudo.portada.
-        // Mientras tanto se queda el cuadro con X del wireframe.
+        // Portada: se descarga con Glide; mientras carga o si falla se queda el cuadro del wireframe
+        val urlImagenCompleta = RetrofitCliente.BASE_URL + "upload/libros/principales/" + adeudo.portada
+        Glide.with(holder.itemView.context)
+            .load(urlImagenCompleta)
+            .placeholder(R.drawable.cbta_ic_portada)
+            .error(R.drawable.cbta_ic_portada)
+            .into(holder.portada)
     }
 
     class AdeudoViewHolder(vista: View) : RecyclerView.ViewHolder(vista) {
