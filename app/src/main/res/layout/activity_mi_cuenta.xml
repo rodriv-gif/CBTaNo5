@@ -7,13 +7,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#F4F7F8"
-    android:fitsSystemWindows="true">
+    android:id="@+id/raiz">
 
-    <!-- ENCABEZADO -->
+    <!-- ENCABEZADO verde (tambien cubre la barra de estado) -->
+    <LinearLayout
+        android:id="@+id/encabezado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#004D32"
+        android:orientation="vertical">
+
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="#004D32">
+        android:layout_height="56dp">
 
         <!-- BOTON REGRESAR -->
         <TextView
@@ -41,6 +47,8 @@
             android:textColor="#FFFFFF" />
 
     </FrameLayout>
+
+    </LinearLayout>
 
     <!-- CONTENIDO DESPLAZABLE -->
     <ScrollView

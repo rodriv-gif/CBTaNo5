@@ -51,6 +51,11 @@ class MiCuentaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mi_cuenta)
 
+        // El encabezado verde cubre tambien la barra de estado, como en las demas pantallas
+        ajustarBarrasDelSistema(
+            findViewById(R.id.raiz),
+            findViewById(R.id.encabezado)
+        )
 
         // Relacionar los componentes con el XML
         txtNombrePerfil = findViewById(R.id.txtNombrePerfil)
@@ -143,12 +148,10 @@ class MiCuentaActivity : AppCompatActivity() {
         // 2. Abrir Mis adeudos
         opMisAdeudos.setOnClickListener {
 
-            val idFinal = idLector.takeIf { it != 0 }
-                ?: idUsuarioOriginal
-
             val intentAdeudos = Intent(this, Mis_Adeudos::class.java)
 
-            intentAdeudos.putExtra(Mis_Adeudos.EXTRA_ID_LECTOR, idFinal)
+            // Se manda la matricula o numero de control, no el id interno de la cuenta
+            intentAdeudos.putExtra(Mis_Adeudos.EXTRA_ID_LECTOR, idUsuarioOriginal)
 
             startActivity(intentAdeudos)
         }
